@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import logoMsMaler from '../../assets/images/logo-ms-maler.png';
+---
+
+<!-- Navigation Header with White Background -->
+<header class="nav-header bg-white relative z-30">
+  <nav class="flex items-center justify-between px-6 py-4 md:px-12 lg:px-24 xl:px-32">
+    <!-- Logo -->
+    <div class="logo">
+      <a href="/" class="block hover:opacity-80 transition-opacity" aria-label="MS Maler Home">
+        <Image
+          src={logoMsMaler}
+          alt="MS Maler Logo"
+          class="h-8 md:h-9 w-auto" />
+      </a>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <ul class="hidden md:flex items-center space-x-8 lg:space-x-12">
+      <li><a href="/"
+             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Home</a>
+      </li>
+      <li><a href="/services"
+             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Services</a>
+      </li>
+      <li><a href="/portfolio"
+             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Projekte</a>
+      </li>
+      <li><a href="/referenzen"
+             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Referenzen</a>
+      </li>
+      <li><a href="/kontakt"
+             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-gray-700 p-2" aria-label="Menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<style>
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Navigation animation */
+  .nav-header {
+    opacity: 0;
+    animation: slideDown 0.6s ease-out forwards;
+  }
+
+  /* Hover effects for interactive elements */
+  .nav-link {
+    position: relative;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Logo styling */
+  .logo a {
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    font-weight: 300;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-header {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

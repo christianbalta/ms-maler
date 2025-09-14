@@ -1,0 +1,62 @@
+---
+import {Image} from 'astro:assets';
+import streichArbeiten from '../../assets/images/Streicharbeiten-service.png'
+import umbauten from '../../assets/images/Umbauten-service.png'
+import spritzen from '../../assets/images/Spritzarbeiten-service.png'
+// Services section for the home page hero area
+// Displays a header and three service cards
+const services = [
+  {
+    label: 'Streichen',
+    title: 'Streicharbeiten',
+    desc:
+      'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    img:
+      streichArbeiten,
+  },
+  {
+    label: 'Umbauten',
+    title: 'Grundierungen',
+    desc:
+      'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    img:
+      umbauten,
+  },
+  {
+    label: 'Renovation',
+    title: 'Spritzarbeiten',
+    desc:
+      'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    img:
+      spritzen,
+  },
+];
+---
+
+<section class="bg-white/90 py-20 sm:py-24">
+  <div class="container mx-auto max-w-8xl px-4 text-center">
+    <h1 class="mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold text-black leading-tight">
+      Maler Winterthur
+    </h1>
+
+    <div class="mt-14 grid gap-10 sm:gap-12 md:gap-14 grid-cols-1 md:grid-cols-3">
+      {services.map((s) => (
+        <article class="group relative flex flex-col items-center text-center pb-16 cursor-pointer">
+          <div class="relative w-full max-w-[500px] overflow-hidden duration-300">
+            <Image src={s.img} alt={s.title} width={500} height={300} loading="lazy" class="w-full h-auto object-cover transition-transform duration-300 ease-out group-hover:scale-105" />
+          </div>
+
+          <h2 class="mt-2 text-xl sm:text-2xl font-bold text-gray-900">{s.title}</h2>
+          <p class="mt-3 max-w-[28ch] sm:max-w-[36ch] text-gray-500">
+            {s.desc}
+          </p>
+
+          <a href="#" aria-label={`More about ${s.title}`}
+             class="absolute bottom-0 left-1/2 -translate-x-1/2 inline-flex items-center justify-center size-11 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white group-hover:bg-gray-900 group-hover:text-white transition-colors">
+            →
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

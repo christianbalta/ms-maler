@@ -1,0 +1,237 @@
+---
+import {Image} from 'astro:assets';
+import heroImage from '../../assets/images/hero-interior.jpg';
+
+const tagline = "Präzision in Farbe – MS Maler"
+---
+
+<!-- Hero Section with Sidebar -->
+<section class="hero-container relative flex bg-white" style="height: calc(100vh - 72px);">
+  <!-- Left Sidebar with Social Links -->
+  <aside
+      class="social-sidebar hidden lg:flex flex-col justify-center items-center bg-white w-24 xl:w-32 z-20">
+    <div class="flex flex-col items-center space-y-10">
+      <a href="#"
+         class="social-link group flex flex-col items-center text-gray-600 hover:text-black transition-colors duration-300">
+        <i class="fab fa-instagram text-xl mb-2"></i>
+        <span class="vertical-text text-xs uppercase tracking-wider">Instagram</span>
+      </a>
+
+      <a href="#"
+         class="social-link group flex flex-col items-center text-gray-600 hover:text-black transition-colors duration-300">
+        <i class="fab fa-facebook text-xl mb-2"></i>
+        <span class="vertical-text text-xs uppercase tracking-wider">Facebook</span>
+      </a>
+
+      <a href="#"
+         class="social-link group flex flex-col items-center text-gray-600 hover:text-black transition-colors duration-300">
+        <i class="fab fa-linkedin text-xl mb-2"></i>
+        <span class="vertical-text text-xs uppercase tracking-wider">LinkedIn</span>
+      </a>
+    </div>
+
+    <!-- Vertical line separator on the right edge of sidebar -->
+    <div class="absolute right-0 top-0 bottom-0 w-px bg-gray-200"></div>
+  </aside>
+
+  <!-- Main Hero Content Area -->
+  <div class="relative flex-1 overflow-hidden">
+    <!-- Hero Image Container -->
+    <div class="hero-image-wrapper relative w-full h-full">
+      <Image
+          src={heroImage}
+          width={1920}
+          height={1080}
+          alt="Luxury modern interior design"
+          class="hero-image w-full h-full object-cover"
+          loading="eager"
+      />
+
+      <!-- Text Overlay at Bottom Right -->
+      <div
+          class="text-overlay absolute bottom-0 right-0 z-10 p-8 bg-black backdrop-blur-sm">
+        <p class="tagline text-white font-bold leading-tight">
+          {tagline}
+        </p>
+      </div>
+    </div>
+
+    <!-- Mobile Social Links (shown at bottom left on mobile) -->
+    <div class="social-links-mobile flex lg:hidden absolute left-4 bottom-4 z-20 space-x-4">
+      <a href="#" class="text-white/60 hover:text-white transition-colors duration-300"
+         aria-label="Instagram">
+        <i class="fab fa-instagram text-xl"></i>
+      </a>
+      <a href="#" class="text-white/60 hover:text-white transition-colors duration-300"
+         aria-label="Dribbble">
+        <i class="fab fa-dribbble text-xl"></i>
+      </a>
+      <a href="#" class="text-white/60 hover:text-white transition-colors duration-300"
+         aria-label="Facebook">
+        <i class="fab fa-facebook text-xl"></i>
+      </a>
+      <a href="#" class="text-white/60 hover:text-white transition-colors duration-300"
+         aria-label="Twitter">
+        <i class="fab fa-x-twitter text-xl"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Custom animations for hero section */
+  /* Scale-up animation: start at 70% size (keeping aspect ratio) and grow to full size */
+  @keyframes heroImageScaleUp {
+    0% {
+      transform: scale(0.7);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Apply animations on load */
+  .hero-image {
+    /* Scale from 70% to full size, preserving aspect ratio */
+    animation: heroImageScaleUp 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  .text-overlay {
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease-out 2s forwards;
+  }
+
+  /* Social sidebar animation */
+  .social-sidebar {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 0.3s forwards;
+  }
+
+  /* Mobile social links animation */
+  .social-links-mobile {
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease-out 2.5s forwards;
+  }
+
+  /* Social link animations with staggered delay */
+  .social-link {
+    opacity: 0;
+    animation: fadeSlideUp 0.6s ease-out forwards;
+  }
+
+  .social-link:nth-child(1) {
+    animation-delay: 0.5s;
+  }
+
+  .social-link:nth-child(2) {
+    animation-delay: 0.7s;
+  }
+
+  .social-link:nth-child(3) {
+    animation-delay: 0.9s;
+  }
+
+  .social-link:nth-child(4) {
+    animation-delay: 1.1s;
+  }
+
+  /* Responsive tagline font size using clamp */
+  .tagline {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-image,
+    .text-overlay,
+    .social-sidebar,
+    .social-link,
+    .social-links-mobile {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .text-overlay {
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+    }
+
+    .tagline {
+      font-size: clamp(1.75rem, 6vw, 2.5rem);
+    }
+  }
+
+  /* Social link hover effect */
+  .social-link {
+    transition: transform 0.3s ease;
+  }
+
+  .social-link:hover {
+    transform: translateX(2px);
+  }
+
+  /* Font Awesome icon styling */
+  .social-link i, .social-links-mobile i {
+    transition: transform 0.3s ease;
+  }
+
+  .social-link:hover i, .social-links-mobile a:hover i {
+    transform: scale(1.1);
+  }
+
+  /* Rotate desktop sidebar icons vertically and compose with hover scale */
+  .social-sidebar .social-link i {
+    transform: rotate(-90deg);
+  }
+
+  .social-sidebar .social-link:hover i {
+    transform: rotate(-90deg) scale(1.1);
+  }
+
+  /* Vertical text rotation - using transform rotate */
+  .social-link .vertical-text {
+    transform: rotate(-90deg) !important;
+    transform-origin: center center !important;
+    writing-mode: horizontal-tb !important;
+    font-size: 0.65rem !important;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    display: inline-block !important;
+    width: max-content;
+    height: auto;
+    white-space: nowrap;
+  }
+
+</style>

@@ -1,35 +1,38 @@
 ---
 import {Image} from 'astro:assets';
-import streichArbeiten from '../../assets/images/Streicharbeiten-service.png'
-import umbauten from '../../assets/images/Umbauten-service.png'
-import spritzen from '../../assets/images/Spritzarbeiten-service.png'
-// Services section for the home page hero area
-// Displays a header and three service cards
+import malerArbeiten from '../../assets/images/malerarbeiten-service.jpeg'
+import farbberatung from '../../assets/images/farbberatung-service.jpeg'
+import spritzen from '../../assets/images/spritzarbeiten-service-long.png'
+
 const services = [
   {
-    label: 'Streichen',
-    title: 'Streicharbeiten',
+    title: 'Malerarbeiten',
     desc:
       'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     img:
-      streichArbeiten,
+      malerArbeiten,
   },
   {
-    label: 'Umbauten',
-    title: 'Grundierungen',
+    title: 'Farbberatung / Farbkonzepte',
     desc:
       'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     img:
-      umbauten,
+    farbberatung,
   },
   {
-    label: 'Renovation',
     title: 'Spritzarbeiten',
     desc:
       'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     img:
       spritzen,
   },
+  {
+    title: 'Fassaden- & Aussenarbeiten',
+    desc:
+        'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    img:
+    spritzen,
+  }
 ];
 ---
 
@@ -39,11 +42,11 @@ const services = [
       Maler Winterthur
     </h1>
 
-    <div class="mt-14 grid gap-10 sm:gap-12 md:gap-14 grid-cols-1 md:grid-cols-3">
+    <div class="mt-14 grid gap-10 sm:gap-12 md:gap-14 grid-cols-1 md:grid-cols-4">
       {services.map((s) => (
         <article class="group relative flex flex-col items-center text-center pb-16 cursor-pointer">
-          <div class="relative w-full max-w-[500px] overflow-hidden duration-300">
-            <Image src={s.img} alt={s.title} width={500} height={300} loading="lazy" class="w-full h-auto object-cover transition-transform duration-300 ease-out group-hover:scale-105" />
+          <div class="relative mx-auto size-40 sm:size-48 md:size-56 rounded-full overflow-hidden duration-300">
+            <Image src={s.img} alt={s.title} width={400} height={400} loading="lazy" class="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105" />
           </div>
 
           <h2 class="mt-2 text-xl sm:text-2xl font-bold text-gray-900">{s.title}</h2>

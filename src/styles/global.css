@@ -4,6 +4,7 @@
 @theme {
   --color-primary: #fff;
   --color-primary-dark: #000;
+  --color-accent: #f7f6f3;
 }
 
 /* Global font family for the whole website */

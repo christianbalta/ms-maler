@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import {Image} from 'astro:assets';
 import logoMsMaler from '../../assets/images/logo-ms-maler.png';
 ---
 
@@ -10,9 +10,9 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
     <div class="logo">
       <a href="/" class="block hover:opacity-80 transition-opacity" aria-label="MS Maler Home">
         <Image
-          src={logoMsMaler}
-          alt="MS Maler Logo"
-          class="h-8 md:h-9 w-auto" />
+            src={logoMsMaler}
+            alt="MS Maler Logo"
+            class="h-8 md:h-9 w-auto"/>
       </a>
     </div>
 
@@ -21,7 +21,7 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
       <li><a href="/"
              class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Home</a>
       </li>
-      <li><a href="/services"
+      <li><a href="/services" id="servicesTrigger"
              class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Services</a>
       </li>
       <li><a href="/portfolio"
@@ -31,7 +31,7 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
              class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Referenzen</a>
       </li>
       <li><a href="/kontakt"
-             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Contact</a>
+             class="nav-link text-gray-700 hover:text-gray-900 transition-colors duration-300 text-sm uppercase tracking-wide">Kontakt</a>
       </li>
     </ul>
 
@@ -45,19 +45,154 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
   </nav>
 </header>
 
-<style>
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+<div id="servicesOverlay" class="services-overlay" aria-hidden="true">
+  <div class="services-overlay__inner">
+    <div class="panel-left">
+
+    </div>
+    <div class="panel-right">
+      <nav class="services-menu" aria-label="Service navigation">
+        <ul class="services-list">
+          <li class="service-item">
+            <a href="/services/malerarbeiten" class="service-link">
+              <span class="service-icon" aria-hidden="true">
+                <i class="fa-solid fa-paint-roller"></i>
+              </span>
+              <span class="service-text">
+                <span class="service-title">Malerarbeiten</span>
+                <span class="service-desc">Innen- und Renovationsarbeiten in höchster Qualität.</span>
+              </span>
+              <span class="service-arrow" aria-hidden="true">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </a>
+          </li>
+          <li class="service-item">
+            <a href="/services/farbberatung" class="service-link">
+              <span class="service-icon" aria-hidden="true">
+                <i class="fa-solid fa-palette"></i>
+              </span>
+              <span class="service-text">
+                <span class="service-title">Farbberatung / Farbkonzepte</span>
+                <span class="service-desc">Individuelle Farbkonzepte für Räume und Fassaden.</span>
+              </span>
+              <span class="service-arrow" aria-hidden="true">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </a>
+          </li>
+          <li class="service-item">
+            <a href="/services/spritzarbeiten" class="service-link">
+              <span class="service-icon" aria-hidden="true">
+                <i class="fa-solid fa-spray-can-sparkles"></i>
+              </span>
+              <span class="service-text">
+                <span class="service-title">Spritzarbeiten</span>
+                <span class="service-desc">Effiziente und gleichmässige Oberflächenbeschichtung.</span>
+              </span>
+              <span class="service-arrow" aria-hidden="true">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </a>
+          </li>
+          <li class="service-item">
+            <a href="/services/fassaden-aussenarbeiten" class="service-link">
+              <span class="service-icon" aria-hidden="true">
+                <i class="fa-solid fa-city"></i>
+              </span>
+              <span class="service-text">
+                <span class="service-title">Fassaden- & Aussenarbeiten</span>
+                <span class="service-desc">Schutz und Gestaltung für die Aussenseite Ihrer Immobilie.</span>
+              </span>
+              <span class="service-arrow" aria-hidden="true">
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Place all overlay logic here to keep behavior encapsulated with the nav
+  const header = document.querySelector('.nav-header');
+  const trigger = document.getElementById('servicesTrigger');
+  const overlay = document.getElementById('servicesOverlay');
+  const inner = overlay?.querySelector('.services-overlay__inner');
+  const panelLeft = overlay?.querySelector('.panel-left');
+  const panelRight = overlay?.querySelector('.panel-right');
+
+  function positionOverlay() {
+    if (!header || !overlay || !inner) return;
+    const rect = header.getBoundingClientRect();
+    overlay.style.top = rect.bottom + 'px';
+    overlay.style.height = `calc(100vh - ${rect.bottom}px)`;
   }
 
-  /* Navigation animation */
+  let hideTimer;
+
+  function showOverlay() {
+    if (!overlay) return;
+    positionOverlay();
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+  }
+
+  function scheduleHide() {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }, 120);
+  }
+
+  function hideNow() {
+    clearTimeout(hideTimer);
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  function cancelHide() {
+    clearTimeout(hideTimer);
+  }
+
+  if (trigger && overlay) {
+    ['mouseenter', 'focus'].forEach(evt => trigger.addEventListener(evt, showOverlay));
+    ['mouseleave', 'blur'].forEach(evt => trigger.addEventListener(evt, scheduleHide));
+
+    if (panelRight) {
+      panelRight.addEventListener('mouseenter', cancelHide);
+      panelRight.addEventListener('mouseleave', scheduleHide);
+    }
+
+    if (panelLeft) {
+      panelLeft.addEventListener('mouseenter', hideNow);
+    }
+
+    window.addEventListener('resize', positionOverlay);
+    window.addEventListener('scroll', positionOverlay, {passive: true});
+  }
+</script>
+
+<style>
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .nav-header {
     opacity: 0;
     animation: slideDown 0.6s ease-out forwards;
   }
 
-  /* Hover effects for interactive elements */
   .nav-link {
     position: relative;
     font-size: 0.875rem;
@@ -79,11 +214,156 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
     width: 100%;
   }
 
-  /* Logo styling */
   .logo a {
     font-size: 1.5rem;
     letter-spacing: 0.1em;
     font-weight: 300;
+  }
+
+  .services-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+    z-index: 20;
+  }
+
+  .services-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .services-overlay__inner {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .services-overlay .panel-left {
+    background: rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    animation: overlayIn 240ms ease 40ms forwards;
+  }
+
+  .services-overlay.is-open .panel-left {
+    animation: overlayIn 240ms ease forwards;
+  }
+
+  .services-overlay .panel-right {
+    background: rgba(12, 18, 22, 0.96);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transform: translateY(-6px);
+    opacity: 0;
+    animation: overlayIn 240ms ease forwards;
+  }
+
+  @keyframes overlayIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .services-menu {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .services-list {
+    list-style: none;
+    margin: 0;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .service-item {
+  }
+
+  .service-link {
+    display: grid;
+    grid-template-columns: 48px 1fr 28px;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 14px;
+    border-radius: 12px;
+    color: #e9edf1;
+    text-decoration: none;
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+
+  .service-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    color: #d6dadf;
+  }
+
+  .service-icon i {
+    font-size: 20px;
+    line-height: 1;
+    display: inline-block;
+  }
+
+  .service-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .service-title {
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: #f6d8a6;
+  }
+
+  .service-desc {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #b5c1c9;
+    opacity: 0.85;
+  }
+
+  .service-arrow {
+    width: 28px;
+    height: 28px;
+    color: #f6d8a6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .service-link:hover .service-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .service-arrow i {
+    font-size: 16px;
+    line-height: 1;
   }
 
   /* Reduced motion support */
@@ -92,6 +372,25 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
       animation: none;
       opacity: 1;
       transform: none;
+    }
+
+    .services-overlay {
+      transition: none;
+    }
+
+    .services-overlay .panel-left,
+    .services-overlay .panel-right {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .service-link {
+      transition: none;
+    }
+
+    .service-arrow {
+      transition: none;
     }
   }
 </style>

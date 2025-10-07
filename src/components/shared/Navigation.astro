@@ -36,14 +36,60 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
     </ul>
 
     <!-- Mobile Menu Button -->
-    <button class="md:hidden text-gray-700 p-2" aria-label="Menu">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="mobileMenuButton" class="md:hidden text-gray-700 p-2" aria-label="Menü öffnen" aria-controls="mobileMenu" aria-expanded="false">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
   </nav>
 </header>
+
+<!-- Mobile Navigation Overlay -->
+<div id="mobileMenu" class="md:hidden fixed inset-0 z-40 hidden" aria-hidden="true">
+  <!-- Backdrop -->
+  <div id="mobileMenuBackdrop" class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-200 ease-out"></div>
+  <!-- Drawer -->
+  <div id="mobileMenuPanel" class="absolute right-0 top-0 h-full w-80 max-w-[85%] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col z-10" style="transform: translateX(100%)">
+    <div class="flex items-center justify-between px-5 py-4 border-b">
+      <div class="flex items-center gap-3">
+        <Image src={logoMsMaler} alt="MS Maler Logo" class="h-7 w-auto" />
+      </div>
+      <button id="mobileMenuClose" class="p-2 text-gray-600 hover:text-black" aria-label="Menü schliessen">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto">
+      <ul class="px-5 py-4 space-y-2">
+        <li><a href="/" class="block px-3 py-3 rounded-lg text-gray-800 hover:bg-gray-100 text-sm uppercase tracking-wide">Home</a></li>
+        <li>
+          <button id="mobileServicesToggle" class="w-full flex items-center justify-between px-3 py-3 rounded-lg text-gray-800 hover:bg-gray-100 text-sm uppercase tracking-wide text-left">
+            <span>Services</span>
+            <i class="fa-solid fa-chevron-down transition-transform duration-200" id="mobileServicesChevron"></i>
+          </button>
+          <ul id="mobileServicesList" class="hidden mt-1 ml-3 space-y-1">
+            <li><a href="/services/malerarbeiten" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 text-xs">Malerarbeiten</a></li>
+            <li><a href="/services/farbberatung" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 text-xs">Farbberatung / Farbkonzepte</a></li>
+            <li><a href="/services/spritzarbeiten" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 text-xs">Spritzarbeiten</a></li>
+            <li><a href="/services/fassaden-aussenarbeiten" class="block px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-50 text-xs">Fassaden- & Aussenarbeiten</a></li>
+          </ul>
+        </li>
+        <li><a href="/portfolio" class="block px-3 py-3 rounded-lg text-gray-800 hover:bg-gray-100 text-sm uppercase tracking-wide">Projekte</a></li>
+        <li><a href="/referenzen" class="block px-3 py-3 rounded-lg text-gray-800 hover:bg-gray-100 text-sm uppercase tracking-wide">Referenzen</a></li>
+        <li><a href="/kontakt" class="block px-3 py-3 rounded-lg text-gray-800 hover:bg-gray-100 text-sm uppercase tracking-wide">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <div class="px-5 py-4 border-t">
+      <div class="flex items-center gap-4 text-gray-600">
+        <a href="#" aria-label="Instagram" class="hover:text-black transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+        <a href="#" aria-label="Facebook" class="hover:text-black transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+        <a href="#" aria-label="LinkedIn" class="hover:text-black transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="servicesOverlay" class="services-overlay" aria-hidden="true">
   <div class="services-overlay__inner">
@@ -174,6 +220,69 @@ import logoMsMaler from '../../assets/images/logo-ms-maler.png';
     window.addEventListener('resize', positionOverlay);
     window.addEventListener('scroll', positionOverlay, {passive: true});
   }
+
+  // Mobile menu logic
+  const mobileBtn = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobilePanel = document.getElementById('mobileMenuPanel');
+  const mobileBackdrop = document.getElementById('mobileMenuBackdrop');
+  const mobileClose = document.getElementById('mobileMenuClose');
+
+  function openMobileMenu() {
+    if (!mobileMenu || !mobilePanel || !mobileBackdrop) return;
+    mobileMenu.classList.remove('hidden');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        mobileBackdrop.style.opacity = '1';
+        mobilePanel.style.transform = 'translateX(0)';
+      });
+    });
+    mobileBtn?.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu || !mobilePanel || !mobileBackdrop) return;
+    mobileBackdrop.style.opacity = '0';
+    mobilePanel.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      mobileBtn?.setAttribute('aria-expanded', 'false');
+    }, 300);
+  }
+
+  mobileBtn?.addEventListener('click', openMobileMenu);
+  mobileClose?.addEventListener('click', closeMobileMenu);
+  mobileBackdrop?.addEventListener('click', closeMobileMenu);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close mobile menu when a link is clicked
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+  }
+
+  // Mobile services submenu toggle
+  const mobileServicesToggle = document.getElementById('mobileServicesToggle');
+  const mobileServicesList = document.getElementById('mobileServicesList');
+  const mobileServicesChevron = document.getElementById('mobileServicesChevron');
+
+  mobileServicesToggle?.addEventListener('click', () => {
+    const isHidden = mobileServicesList?.classList.contains('hidden');
+    if (isHidden) {
+      mobileServicesList?.classList.remove('hidden');
+      mobileServicesChevron?.classList.add('rotate-180');
+    } else {
+      mobileServicesList?.classList.add('hidden');
+      mobileServicesChevron?.classList.remove('rotate-180');
+    }
+  });
 </script>
 
 <style>

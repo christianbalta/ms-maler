@@ -1,0 +1,88 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/shared/Navigation.astro';
+import MalerarbeitenHero from '../../components/malerarbeiten/MalerarbeitenHero.astro';
+import ServiceDetails from '../../components/malerarbeiten/ServiceDetails.astro';
+import WorkProcess from '../../components/malerarbeiten/WorkProcess.astro';
+import ServiceBenefits from '../../components/malerarbeiten/ServiceBenefits.astro';
+import ServiceGallery from '../../components/malerarbeiten/ServiceGallery.astro';
+import PricingSection from '../../components/malerarbeiten/PricingSection.astro';
+import ServiceFAQ from '../../components/malerarbeiten/ServiceFAQ.astro';
+import CTA from '../../components/shared/CTA.astro';
+import Footer from '../../components/shared/Footer.astro';
+
+// SEO metadata
+const pageTitle = "Malerarbeiten Winterthur | Professionelle Malerservices - MS Maler";
+const pageDescription = "Professionelle Malerarbeiten in Winterthur und Umgebung. Innenraumgestaltung, Fassadenarbeiten, Renovationen und mehr. Kostenlose Beratung und faire Preise.";
+---
+
+<Layout
+    title={pageTitle}
+    description={pageDescription}
+>
+  <Navigation />
+  <MalerarbeitenHero />
+  <ServiceDetails />
+  <WorkProcess />
+  <ServiceBenefits />
+  <ServiceGallery />
+  <PricingSection />
+  <ServiceFAQ />
+  <CTA />
+  <Footer />
+</Layout>
+
+<script>
+  // Performance monitoring
+  if ('PerformanceObserver' in window) {
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        // Log performance metrics for optimization
+        console.log(`${entry.name}: ${entry.duration}ms`);
+      });
+    });
+    observer.observe({ entryTypes: ['paint', 'largest-contentful-paint'] });
+  }
+
+  // Intersection Observer for lazy loading and animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -100px 0px',
+    threshold: 0.1
+  };
+
+  const animateOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-up');
+        animateOnScroll.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  // Apply to all sections with data-animate attribute
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      animateOnScroll.observe(el);
+    });
+  });
+</script>
+
+<style>
+  /* Page-specific animations */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  [data-animate].animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

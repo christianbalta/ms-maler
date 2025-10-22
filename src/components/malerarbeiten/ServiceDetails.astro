@@ -1,0 +1,157 @@
+---
+interface Service {
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+}
+
+const services: Service[] = [
+  {
+    icon: "fa-paint-roller",
+    title: "Innenraumgestaltung",
+    description: "Perfekte Wandgestaltung für Ihre Arbeitsräume",
+    features: [
+      "Präzise Wandanstriche",
+      "Dekorative Techniken",
+      "Tapezierarbeiten",
+      "Lackierungen"
+    ]
+  },
+  {
+    icon: "fa-building",
+    title: "Fassadenarbeiten",
+    description: "Schutz und Verschönerung Ihrer Gebäudefassade",
+    features: [
+      "Fassadenrenovation",
+      "Wetterschutz",
+      "Graffitischutz",
+      "Wärmedämmung"
+    ]
+  },
+  {
+    icon: "fa-home",
+    title: "Renovationen",
+    description: "Komplette Renovierungsprojekte aus einer Hand",
+    features: [
+      "Altbausanierung",
+      "Neubauprojekte",
+      "Umbauten",
+      "Notfallservice"
+    ]
+  },
+  {
+    icon: "fa-palette",
+    title: "Spezialarbeiten",
+    description: "Individuelle Lösungen für besondere Anforderungen",
+    features: [
+      "Spachteltechniken",
+      "Vergoldungen",
+      "Stuckaturen",
+      "Betonoptik"
+    ]
+  }
+];
+---
+
+<section class="py-20 sm:py-24 bg-white" data-animate>
+  <div class="container mx-auto max-w-7xl px-4 sm:px-6">
+    <!-- Section header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <p class="text-xs tracking-[0.18em] text-[var(--color-professional)] font-medium uppercase mb-3">
+        Unsere Leistungen
+      </p>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
+        Malerarbeiten für jeden Bedarf
+      </h2>
+      <p class="text-lg text-gray-600">
+        Von kleinen Ausbesserungen bis zu Grossprojekten – wir bieten massgeschneiderte
+        Lösungen für Geschäftskunden.
+      </p>
+    </div>
+
+    <!-- Services grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {services.map((service, index) => (
+          <article
+              class="group relative bg-[var(--color-surface-light)] rounded-2xl p-6 hover-lift cursor-pointer"
+              data-service={index}
+          >
+            <!-- Icon -->
+            <div class="w-14 h-14 rounded-xl bg-primary-dark flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+              <i class={`fas ${service.icon} text-white text-xl`} aria-hidden="true"></i>
+            </div>
+
+            <!-- Content -->
+            <h3 class="text-xl font-bold text-gray-900 mb-3">
+              {service.title}
+            </h3>
+            <p class="text-gray-600 mb-4">
+              {service.description}
+            </p>
+
+            <!-- Features list -->
+            <ul class="space-y-2" role="list">
+              {service.features.map(feature => (
+                  <li class="flex items-start gap-2 text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+              ))}
+            </ul>
+          </article>
+      ))}
+    </div>
+
+    <!-- Additional info -->
+    <div class="mt-16 bg-gradient-to-br from-black via-gray-800 to-black rounded-3xl p-8 md:p-12 text-white">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h3 class="text-2xl md:text-3xl font-bold mb-4">
+            Warum MS Maler wählen?
+          </h3>
+          <p class="text-white/90 mb-6">
+            Mit über 15 Jahren Erfahrung und hunderten zufriedenen Kunden sind wir Ihr
+            zuverlässiger Partner für alle Malerarbeiten in Winterthur und Umgebung.
+          </p>
+          <ul class="space-y-3" role="list">
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[var(--color-paint-accent)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Kostenlose Erstberatung und Offerte</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[var(--color-paint-accent)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Festpreisgarantie ohne versteckte Kosten</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-[var(--color-paint-accent)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span>Termingerechte Ausführung garantiert</span>
+            </li>
+          </ul>
+        </div>
+        <div class="flex justify-center">
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+            <div class="text-5xl md:text-6xl font-bold mb-2">5/5</div>
+            <div class="text-xl font-semibold mb-2">Kundenzufriedenheit</div>
+            <div class="flex justify-center gap-1 mb-3">
+              {[...Array(5)].map(() => (
+                  <svg class="w-5 h-5 text-[var(--color-paint-accent)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+              ))}
+            </div>
+            <p class="text-white/80 text-sm">Basierend auf 20+ Bewertungen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

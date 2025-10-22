@@ -1,0 +1,152 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = "Malerarbeiten",
+  subtitle = "Effiziente Malerarbeiten für Gewerbe, Büros und Praxen"
+} = Astro.props;
+
+// Hero background image - using a placeholder, replace with actual image
+const heroImage = '/images/malerarbeiten-hero.png';
+---
+
+<section
+    class="relative min-h-[80vh] flex items-center justify-center overflow-hidden py-12 sm:py-0"
+    aria-label="Hero section"
+>
+  <!-- Background with image and gradient overlay -->
+  <div class="absolute inset-0 z-0">
+
+    <!-- Gradient overlay for better text readability -->
+    <div class="absolute inset-0 bg-gradient-to-br from-accent via-gray-100/70 to-accent"></div>
+
+    <!-- Additional animated gradient overlay for visual interest -->
+    <div class="absolute inset-0 bg-gradient-to-t from-accent via-transparent to-transparent"></div>
+  </div>
+
+  <!-- Content container -->
+  <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="max-w-4xl mx-auto">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/10 backdrop-blur-sm border border-black/20 mb-6 animate-fade-in">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        <span class="text-primary-dark text-sm font-medium">Verfügbar in Winterthur & Umgebung</span>
+      </div>
+
+      <!-- Main heading -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-dark mb-6 animate-slide-up">
+        {title}
+        <span class="block text-3xl sm:text-4xl md:text-5xl mt-4">
+          {subtitle}
+        </span>
+      </h1>
+
+      <!-- Description -->
+      <p class="text-lg sm:text-xl text-black/80 mb-10 max-w-2xl mx-auto animate-slide-up-delay">
+        Von der ersten Beratung bis zum letzten Pinselstrich – wir bringen Farbe in Ihr Geschäft
+        mit höchster Qualität und Präzision. Über 15 Jahre Erfahrung in Winterthur.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up-delay-2">
+        <a
+            href="#kontakt"
+            class="inline-flex items-center justify-center px-8 py-4 rounded-full bg-white text-gray-900 font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 focus-ring"
+            aria-label="Kostenloses Angebot anfordern"
+        >
+          <span>Kostenloses Angebot</span>
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+        <a
+            href="#portfolio"
+            class="inline-flex items-center justify-center px-8 py-4 rounded-full border-2 border-black/30 text-gray-900 font-semibold hover:bg-black/10 backdrop-blur-sm transition-all duration-300 focus-ring"
+            aria-label="Unsere Projekte ansehen"
+        >
+          <svg class="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>Unsere Arbeiten</span>
+        </a>
+      </div>
+
+      <!-- Trust indicators -->
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 animate-fade-in-delay">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-gray-900">15+</div>
+          <div class="text-sm text-gray-700 mt-1">Jahre Erfahrung</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-gray-900">100%</div>
+          <div class="text-sm text-gray-700 mt-1">Qualitätsgarantie</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-gray-900">48h</div>
+          <div class="text-sm text-gray-700 mt-1">Antwortzeit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.8s ease-out forwards;
+  }
+
+  .animate-slide-up-delay {
+    animation: slide-up 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+  }
+
+  .animate-slide-up-delay-2 {
+    animation: slide-up 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-delay {
+    animation: fade-in 1s ease-out 0.6s forwards;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-slide-up-delay,
+    .animate-slide-up-delay-2,
+    .animate-fade-in-delay,
+    .animate-bounce {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>

@@ -8,30 +8,30 @@ const services = [
   {
     title: 'Malerarbeiten',
     desc:
-      'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    img:
-      malerArbeiten,
+      'Professionelle Malerarbeiten für Innen- und Aussenbereiche. Sauber, termingerecht und mit Qualitätsgarantie.',
+    img: malerArbeiten,
+    link: '/services/malerarbeiten',
   },
   {
     title: 'Farbberatung / Farbkonzepte',
     desc:
-      'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    img:
-    farbberatung,
+      'Professionelle Farbberatung für harmonische Räume. Individuelle Konzepte für Innen und Aussen.',
+    img: farbberatung,
+    link: '/services/farbberatung',
   },
   {
     title: 'Spritzarbeiten',
     desc:
-      'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    img:
-      spritzen,
+      'Effiziente und gleichmässige Beschichtungen für grosse Flächen – ideal für Gewerbeobjekte in Winterthur und Umgebung.',
+    img: spritzen,
+    link: '/services/spritzarbeiten',
   },
   {
     title: 'Fassaden- & Aussenarbeiten',
     desc:
-        'Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    img:
-    spritzen,
+        'Schützende und repräsentative Fassadengestaltung für langlebige Ergebnisse.',
+    img: spritzen,
+    link: '/services/fassaden-aussenarbeiten',
   }
 ];
 ---
@@ -54,7 +54,7 @@ const services = [
             {s.desc}
           </p>
 
-          <a href="#" aria-label={`More about ${s.title}`}
+          <a href={s.link} aria-label={`Mehr über ${s.title}`}
              class="absolute bottom-0 left-1/2 -translate-x-1/2 inline-flex items-center justify-center size-11 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white group-hover:bg-gray-900 group-hover:text-white transition-colors">
             →
           </a>

@@ -1,0 +1,96 @@
+---
+export interface FAQItem { question: string; answer: string; }
+
+export interface ServiceFAQProps {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  items: FAQItem[];
+}
+
+const { eyebrow = 'FAQ', title, subtitle, items } = Astro.props as ServiceFAQProps;
+---
+
+<section class="py-20 sm:py-24 bg-[var(--color-accent)]" data-animate>
+  <div class="container mx-auto max-w-4xl px-4 sm:px-6">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <p class="text-xs tracking-[0.18em] text-[var(--color-professional)] font-medium uppercase mb-3">{eyebrow}</p>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-5">{title}</h2>
+      {subtitle && (<p class="text-lg text-gray-600">{subtitle}</p>)}
+    </div>
+
+    <div class="space-y-4" id="faqAccordion">
+      {items.map((item, index) => (
+        <div class="faq-item bg-white rounded-xl shadow-sm overflow-hidden" style={`animation-delay: ${index * 50}ms`}>
+          <button class="faq-trigger w-full px-6 py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors focus-ring" aria-expanded="false" aria-controls={`faq-content-${index}`}>
+            <span class="text-lg font-semibold text-gray-900 pr-4">{item.question}</span>
+            <span class="faq-icon flex-shrink-0 w-6 h-6 text-[var(--color-paint-blue)] transition-transform duration-300">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </span>
+          </button>
+          <div id={`faq-content-${index}`} class="faq-content hidden px-6 pb-5" aria-hidden="true">
+            <p class="text-gray-600 leading-relaxed">{item.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqTriggers = document.querySelectorAll('.faq-trigger');
+
+    faqTriggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const faqItem = trigger.parentElement;
+        const content = faqItem?.querySelector('.faq-content');
+        const icon = trigger.querySelector('.faq-icon');
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        faqTriggers.forEach((otherTrigger) => {
+          if (otherTrigger !== trigger) {
+            const otherItem = otherTrigger.parentElement;
+            const otherContent = otherItem?.querySelector('.faq-content');
+            const otherIcon = otherTrigger.querySelector('.faq-icon');
+
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            if (otherContent) {
+              otherContent.classList.add('hidden');
+              otherContent.setAttribute('aria-hidden', 'true');
+            }
+            if (otherIcon) {
+              (otherIcon as HTMLElement).style.transform = 'rotate(0deg)';
+            }
+          }
+        });
+
+        if (isOpen) {
+          trigger.setAttribute('aria-expanded', 'false');
+          if (content) {
+            content.classList.add('hidden');
+            content.setAttribute('aria-hidden', 'true');
+          }
+          if (icon) {
+            (icon as HTMLElement).style.transform = 'rotate(0deg)';
+          }
+        } else {
+          trigger.setAttribute('aria-expanded', 'true');
+          if (content) {
+            content.classList.remove('hidden');
+            content.setAttribute('aria-hidden', 'false');
+          }
+          if (icon) {
+            (icon as HTMLElement).style.transform = 'rotate(180deg)';
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+  .faq-content:not(.hidden) { max-height: 500px; transition: max-height 0.3s ease-in; }
+  .faq-icon { transition: transform 0.3s ease; }
+</style>

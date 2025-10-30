@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/shared/Navigation.astro';
+import SharedServiceDetails from '../../components/shared/services/ServiceDetails.astro';
+import SharedServiceHero from '../../components/shared/services/ServiceHero.astro';
+import SharedWorkProcess, {
+  type ProcessStep
+} from '../../components/shared/services/WorkProcess.astro';
+import SharedServiceBenefits, {
+  type BenefitItem,
+  type BadgeItem
+} from '../../components/shared/services/ServiceBenefits.astro';
+import SharedServiceGallery, {
+  type GalleryItem
+} from '../../components/shared/services/ServiceGallery.astro';
+import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
+import CTA from '../../components/shared/CTA.astro';
+import Footer from '../../components/shared/Footer.astro';
+
+// SEO metadata
+const pageTitle = "Spritzarbeiten Winterthur | Professionelle Spritzlackierungen für Gewerbe - MS Maler";
+const pageDescription = "Hochwertige Spritzarbeiten für Türen, Möbel, Metalle und Grossflächen in Winterthur und Umgebung. Gleichmässige Beschichtungen, schnelle Ausführung, perfekte Resultate für Unternehmen.";
+
+// Content for shared components
+const detailsServices = [
+  {
+    icon: 'fa-spray-can-sparkles',
+    title: 'Spritzlackierungen',
+    description: 'Gleichmässige Oberflächen für höchste Ansprüche – ideal für Sichtflächen in Gewerbeobjekten.',
+    features: ['Türen & Zargen', 'Möbel & Einbauten', 'Heizkörper & Geländer', 'Industriekomponenten']
+  },
+  {
+    icon: 'fa-brush',
+    title: 'Beschichtungssysteme',
+    description: 'Systemaufbauten für Langlebigkeit – abgestimmt auf Nutzung, Untergrund und Beanspruchung.',
+    features: ['Grundierung & Haftbrücke', 'Zwischenschliff', 'Decklacke (PU, Acryl, Alkyd)', 'Korrosionsschutz (DIN/ISO)']
+  },
+  {
+    icon: 'fa-warehouse',
+    title: 'Objekt- & Hallenflächen',
+    description: 'Effiziente Grossflächen-Beschichtung mit Airless-/Airmix-Technik und minimierten Stillständen.',
+    features: ['Airless/Airmix Spritzen', 'Staubarme Vorbereitung', 'Schnelltrocknende Systeme', 'Nacht- & Wochenendarbeit']
+  },
+  {
+    icon: 'fa-shield-halved',
+    title: 'Spezialanforderungen',
+    description: 'Massgeschneiderte Lösungen für Hygiene-, Brandschutz- und Designanforderungen.',
+    features: ['Desinfektionsbeständige Lacke', 'Brandschutz-Beschichtungen', 'Strapazierfähige Topcoats', 'VOC-arme Produkte']
+  }
+] satisfies import('../../components/shared/services/ServiceDetails.astro').ServiceItem[];
+
+const detailsRightPanel = {
+  title: 'Warum Spritzarbeiten mit MS Maler?',
+  paragraph: 'Wir liefern präzise, gleichmässige Beschichtungen für Unternehmen in Winterthur und Umgebung – terminsicher, sauber und mit geprüfter Qualität.',
+  bullets: [
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Planung mit minimalen Betriebsunterbrüchen'
+    },
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Moderne Spritztechnik (Airless/Airmix)'
+    },
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Dokumentierte Qualität & Festpreise'
+    }
+  ],
+  rating: {value: '5/5', label: 'Kundenzufriedenheit', basedOn: 'Basierend auf 20+ Bewertungen'}
+} satisfies import('../../components/shared/services/ServiceDetails.astro').RightPanel;
+
+const processSteps: ProcessStep[] = [
+  {
+    number: '01',
+    title: 'Bedarfsanalyse',
+    description: 'Objekt, Nutzung und Termine klären – vor Ort in Winterthur & Region.',
+    icon: 'fa-comments',
+    duration: 'Sofort'
+  },
+  {
+    number: '02',
+    title: 'Bemusterung & Musterflächen',
+    description: 'Farbton, Glanzgrad und Systemwahl – mit Mustern zur sicheren Entscheidung.',
+    icon: 'fa-swatchbook',
+    duration: '1–2 Tage'
+  },
+  {
+    number: '03',
+    title: 'Vorbereitung',
+    description: 'Abdecken, Demontage (falls nötig), Schleifen und Grundieren gemäss Systemaufbau.',
+    icon: 'fa-screwdriver-wrench',
+    duration: 'Nach Projekt'
+  },
+  {
+    number: '04',
+    title: 'Spritzapplikation',
+    description: 'Mehrschichtige, gleichmässige Beschichtung mit kontrollierten Trocknungszeiten.',
+    icon: 'fa-spray-can-sparkles',
+    duration: 'Effizient'
+  },
+  {
+    number: '05',
+    title: 'Qualitätskontrolle & Übergabe',
+    description: 'Endabnahme, Protokoll & Reinigung – betriebsbereit übergeben.',
+    icon: 'fa-clipboard-check',
+    duration: 'Direkt nach Abschluss'
+  }
+];
+
+const benefitBadges: BadgeItem[] = [
+  {iconClass: 'fa-stopwatch', label: 'Schnelle Ausführung'},
+  {iconClass: 'fa-pump-soap', label: 'Saubere Prozesse'},
+  {iconClass: 'fa-certificate', label: 'Profi-Qualität'}
+];
+
+const benefits: BenefitItem[] = [
+  {
+    icon: 'fa-industry',
+    title: 'Effizienz für Gewerbe',
+    description: 'Hohe Flächenleistung und konstante Qualität – ideal für Büros, Praxen, Retail und Industrie.'
+  },
+  {
+    icon: 'fa-square-check',
+    title: 'Reproduzierbare Resultate',
+    description: 'Gleichmässige Schichtdicken und Oberflächen – sichtbar hochwertig.'
+  },
+  {
+    icon: 'fa-people-arrows',
+    title: 'Wenig Stillstand',
+    description: 'Arbeiten ausserhalb der Geschäftszeiten möglich'
+  },
+  {
+    icon: 'fa-earth-europe',
+    title: 'Nachhaltige Produkte',
+    description: 'VOC-arm, emissionsarm und langlebig – sinnvoll für Mensch und Umwelt.'
+  }
+];
+
+const galleryItems: GalleryItem[] = [
+  {
+    id: '1',
+    title: 'Türen & Zargen',
+    category: 'Innenausbau',
+    imageUrl: '/images/gallery/doors.jpg',
+    description: 'PU-Lackierung mit hoher Kantenfestigkeit'
+  },
+  {
+    id: '2',
+    title: 'Metallbauteile',
+    category: 'Industrie',
+    imageUrl: '/images/gallery/metal.jpg',
+    description: 'Korrosionsschutzsystem mit Decklack'
+  },
+  {
+    id: '3',
+    title: 'Einbaumöbel',
+    category: 'Innenausbau',
+    imageUrl: '/images/gallery/furniture.jpg',
+    description: 'Feinschliff und seidenmatter Topcoat'
+  },
+  {
+    id: '4',
+    title: 'Hallendecke',
+    category: 'Gewerbe',
+    imageUrl: '/images/gallery/hall.jpg',
+    description: 'Airless-Beschichtung grosser Deckenflächen'
+  }
+];
+
+const galleryCategories = ['Alle', 'Innenausbau', 'Industrie', 'Gewerbe'];
+
+const faqItems: FAQItem[] = [
+  {
+    question: 'Welche Untergründe eignen sich für Spritzarbeiten?',
+    answer: 'Typische Untergründe sind Holz, Metall, MDF, Kunststoffe und mineralische Flächen. Wir wählen das passende System (Grundierung/Decklack) nach Untergrund und Beanspruchung.'
+  },
+  {
+    question: 'Können die Arbeiten ausserhalb der Geschäftszeiten erfolgen?',
+    answer: 'Ja. Für minimale Betriebsunterbrüche planen wir auf Wunsch Abend- und Wochenendschichten – besonders bewährt in Büros, Retail und Praxen.'
+  },
+  {
+    question: 'Wie stellen Sie die Qualität sicher?',
+    answer: 'Durch definierte Systemaufbauten, kontrollierte Trocknungszeiten, Zwischenschliffe sowie eine dokumentierte Endkontrolle.'
+  },
+  {
+    question: 'In welchen Regionen sind Sie im Einsatz?',
+    answer: 'Unser Kerngebiet ist Winterthur samt Umgebung (Grossraum Zürich, Frauenfeld, Schaffhausen). Für grössere Projekte prüfen wir Einsätze in der gesamten Deutschschweiz.'
+  }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navigation/>
+
+  <SharedServiceHero title="Spritzarbeiten"
+                     subtitle="Für Unternehmen, Büros und Gewerbe"
+                     description="Präzise, gleichmässige Beschichtungen für Türen, Möbel, Metallbauteile und Grossflächen – effizient, sauber und planbar."/>
+
+  <SharedServiceDetails title="Spritzarbeiten für jeden Bedarf"
+                        subtitle="Präzise Beschichtungen für Möbel, Metall und Grossflächen – effizient und planbar."
+                        services={detailsServices} rightPanel={detailsRightPanel}/>
+
+  <SharedWorkProcess title="So laufen unsere Spritzarbeiten ab"
+                     subtitle="Strukturierter Ablauf für gleichmässige Ergebnisse und minimale Ausfallzeiten."
+                     steps={processSteps}/>
+
+  <SharedServiceBenefits title="Ihre Vorteile mit Spritzarbeiten"
+                         subtitle="Qualität, Effizienz und Planbarkeit – darauf können Sie sich verlassen."
+                         badges={benefitBadges} benefits={benefits}/>
+
+  <SharedServiceGallery title="Referenzen Spritzarbeiten"
+                        subtitle="Ausgewählte Beispiele aus Winterthur und Umgebung"
+                        categories={galleryCategories} items={galleryItems}/>
+
+  <SharedServiceFAQ title="Häufige Fragen zu Spritzarbeiten"
+                    subtitle="Wissenswertes rund um Technik, Ablauf und Preise."
+                    items={faqItems}/>
+
+  <CTA/>
+  <Footer/>
+</Layout>

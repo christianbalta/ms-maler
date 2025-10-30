@@ -1,0 +1,336 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/shared/Navigation.astro';
+import SharedServiceHero from '../../components/shared/services/ServiceHero.astro';
+import SharedServiceDetails from '../../components/shared/services/ServiceDetails.astro';
+import SharedWorkProcess, {
+  type ProcessStep
+} from '../../components/shared/services/WorkProcess.astro';
+import SharedServiceBenefits, {
+  type BenefitItem,
+  type BadgeItem
+} from '../../components/shared/services/ServiceBenefits.astro';
+import SharedServiceGallery, {
+  type GalleryItem
+} from '../../components/shared/services/ServiceGallery.astro';
+import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
+import CTA from '../../components/shared/CTA.astro';
+import Footer from '../../components/shared/Footer.astro'
+
+// SEO metadata
+const pageTitle = "Farbberatung Winterthur | Farbkonzepte für Unternehmen - MS Maler";
+const pageDescription = "Farbberatung und Farbkonzepte für Gewerbe, Büros und Praxen in Winterthur und Umgebung. Farbpsychologie, Trends, Corporate-Design-Abgleich und Fassadenkonzepte.";
+
+// Content for shared components
+const detailsServices = [
+  {
+    icon: 'fa-swatchbook',
+    title: 'Farbkonzept Innenräume',
+    description: 'Harmonie, Funktion und Corporate Design im Einklang – für Büros, Praxen, Verkaufsflächen und Gastronomie.',
+    features: [
+      'Zonen- und Funktionsfarben (Fokus, Begegnung, Ruhe)',
+      'Farbpsychologie für Produktivität & Wohlbefinden',
+      'Material- & Oberflächenempfehlungen'
+    ]
+  },
+  {
+    icon: 'fa-city',
+    title: 'Fassaden- & Aussenkonzepte',
+    description: 'Repräsentative Aussenauftritte mit Ortsbildbezug – inklusive Behördenabstimmung in Winterthur.',
+    features: [
+      'Farb- und Materialleitbilder',
+      'Historische Farbaufnahme (bei Bestandsbauten)',
+      'Musterflächen vor Ort',
+      'Witterungs- & Langlebigkeitsberatung'
+    ]
+  },
+  {
+    icon: 'fa-chalkboard-user',
+    title: 'Workshops & Bemusterung',
+    description: 'Entscheiden mit Sicherheit: Farb-Workshops, Moodboards, digitale Visualisierungen und Muster vor Ort.',
+    features: [
+      'Moodboards & Trendübersicht',
+      '3D-/Fotovisualisierung',
+      'Musterfächer & Handmuster',
+      'Entscheidungs- und Freigabeprozess'
+    ]
+  },
+  {
+    icon: 'fa-clipboard-check',
+    title: 'Ausführung & Qualität',
+    description: 'Begleitung bis zur Umsetzung – koordinationsstark, terminsicher und budgettreu.',
+    features: [
+      'Leistungsbeschrieb & Offertvergleich',
+      'Termin- & Bauablaufkoordination',
+      'Qualitäts- und Endabnahme',
+      'Dokumentation für Facility Management'
+    ]
+  }
+] satisfies import('../../components/shared/services/ServiceDetails.astro').ServiceItem[];
+
+const detailsRightPanel = {
+  title: 'Warum MS Maler Farbberatung?',
+  paragraph: 'Über 20 Jahre Projekterfahrung in Winterthur. Zertifizierter Fachbetrieb – marken- und nutzerorientierte Farbkonzepte, die wirken.',
+  bullets: [
+    {
+      iconClass: 'fa-solid fa-award text-[var(--color-paint-accent)]',
+      text: 'Zertifizierte Beratung & dokumentierte Konzepte'
+    },
+    {
+      iconClass: 'fa-solid fa-leaf text-green-400',
+      text: 'Nachhaltige Systeme & emissionsarme Produkte'
+    },
+    {
+      iconClass: 'fa-solid fa-user-tie text-white',
+      text: 'Fokus auf Gewerbekunden: effizient, zuverlässig, transparent'
+    }
+  ],
+  rating: {value: '5/5', label: 'Kundenzufriedenheit', basedOn: 'Basierend auf 20+ Bewertungen'}
+} satisfies import('../../components/shared/services/ServiceDetails.astro').RightPanel;
+
+const processSteps: ProcessStep[] = [
+  {
+    number: '01',
+    title: 'Kick-off & Zieldefinition',
+    description: 'Bedarfsanalyse für Gewerbeobjekte: Nutzung, Budget und Zeitrahmen in Winterthur & Region.',
+    icon: 'fa-comments',
+    duration: 'Sofort'
+  },
+  {
+    number: '02',
+    title: 'Analyse & Bestandesaufnahme',
+    description: 'Raum- und Lichtanalyse, Materialität, Verkehrswege. Optional: historische Farbaufnahme bei Bestandsbauten.',
+    icon: 'fa-magnifying-glass',
+    duration: '1–2 Tage'
+  },
+  {
+    number: '03',
+    title: 'Konzept & Visualisierung',
+    description: 'Farbpsychologie, Trend- und Funktionsfarben. Moodboards, Visualisierungen und erste Varianten.',
+    icon: 'fa-swatchbook',
+    duration: '3–5 Tage'
+  },
+  {
+    number: '04',
+    title: 'Bemusterung & Freigabe',
+    description: 'Musterflächen vor Ort, Materialabstimmung und Entscheidungsworkshop.',
+    icon: 'fa-clipboard-check',
+    duration: 'nach Termin'
+  },
+  {
+    number: '05',
+    title: 'Ausführungsvorbereitung',
+    description: 'Leistungsbeschrieb, Terminplanung, Koordination mit Bau & Betrieb – minimaler Unterbruch im Alltag.',
+    icon: 'fa-calendar-check',
+    duration: '48h Offerte'
+  },
+  {
+    number: '06',
+    title: 'Begleitung & Qualität',
+    description: 'Baubegleitung, Qualitätskontrolle, Schlussabnahme und Dokumentation fürs Facility Management.',
+    icon: 'fa-award',
+    duration: 'Projektende'
+  }
+];
+
+const benefits: BenefitItem[] = [
+  {
+    icon: 'fa-bullseye',
+    title: 'Markenwirkung',
+    description: 'Farben, die Ihr Corporate Design stärken und Wiedererkennbarkeit schaffen.'
+  },
+  {
+    icon: 'fa-people-group',
+    title: 'Wohlbefinden & Produktivität',
+    description: 'Farbpsychologie für konzentriertes Arbeiten, angenehme Aufenthaltsqualität und Kundenerlebnis.'
+  },
+  {
+    icon: 'fa-leaf',
+    title: 'Nachhaltige Systeme',
+    description: 'Emissionarme Produkte, langlebige Beschichtungen und verantwortungsvolle Materialwahl.'
+  },
+  {
+    icon: 'fa-certificate',
+    title: 'Zertifizierter Fachbetrieb',
+    description: 'Ausgebildetes Team, dokumentierte Qualität von Beratung bis Umsetzung.'
+  },
+  {
+    icon: 'fa-clock',
+    title: 'Effiziente Abwicklung',
+    description: 'Schnelle Offerten (48h), klare Terminplanung, minimale Betriebsunterbrüche.'
+  },
+  {
+    icon: 'fa-handshake',
+    title: 'Partnerschaftlich',
+    description: 'Transparente Kommunikation, fixe Ansprechpartner und verlässliche Umsetzung.'
+  }
+];
+
+const benefitBadges: BadgeItem[] = [
+  {iconClass: 'fas fa-award text-[var(--color-paint-accent)]', label: 'Zertifiziert'},
+  {iconClass: 'fas fa-leaf text-green-500', label: 'Nachhaltig'}
+];
+
+const testimonial = {
+  quote: 'Mit dem neuen Farbkonzept wirken unsere Flächen moderner und strukturierter – Mitarbeitende und Kundschaft fühlen sich sichtbar wohler. Umsetzung termingerecht und top begleitet.',
+  avatarInitials: 'WB',
+  name: 'Wirtschaftsbetrieb, Winterthur',
+  roleOrLocation: 'Projektleitung'
+} satisfies import('../../components/shared/services/ServiceBenefits.astro').Testimonial;
+
+const galleryCategories = ['Alle', 'Innenraum', 'Gewerbe', 'Fassade'];
+const galleryItems: GalleryItem[] = [
+  {
+    id: '1',
+    title: 'Büro-Farbkonzept',
+    category: 'Innenraum',
+    imageUrl: '/images/gallery/office.jpg',
+    description: 'Zonenfarben für Fokus, Meeting und Lounge'
+  },
+  {
+    id: '2',
+    title: 'Praxis Empfang',
+    category: 'Innenraum',
+    imageUrl: '/images/gallery/clinic.jpg',
+    description: 'Beruhigende Töne für Vertrauen und Hygiene'
+  },
+  {
+    id: '3',
+    title: 'Gastronomie',
+    category: 'Gewerbe',
+    imageUrl: '/images/gallery/restaurant.jpg',
+    description: 'Warme Akzente für Aufenthaltsqualität'
+  },
+  {
+    id: '4',
+    title: 'Retailfläche',
+    category: 'Gewerbe',
+    imageUrl: '/images/gallery/retail.jpg',
+    description: 'Markengerechte Farbführung am POS'
+  },
+  {
+    id: '5',
+    title: 'Fassadenkonzept',
+    category: 'Fassade',
+    imageUrl: '/images/gallery/facade-1.jpg',
+    description: 'Ortsbildgerechte Aussenwirkung'
+  },
+  {
+    id: '6',
+    title: 'Bildung & Verwaltung',
+    category: 'Innenraum',
+    imageUrl: '/images/gallery/classroom.jpg',
+    description: 'Farbkodierung für Orientierung'
+  }
+];
+
+const faqItems: FAQItem[] = [
+  {
+    question: 'Wie läuft eine Farbberatung für Unternehmen ab?',
+    answer: 'Nach einem kurzen Kick-off klären wir Ziele, Nutzung und Corporate Design. Anschliessend analysieren wir Räume/Licht, erstellen Moodboards und erste Varianten. Nach Bemusterung vor Ort erfolgt die Freigabe – optional begleiten wir die Umsetzung bis zur Abnahme.'
+  },
+  {
+    question: 'Berücksichtigen Sie Farbpsychologie und aktuelle Trends?',
+    answer: 'Ja. Unsere Konzepte basieren auf Farbpsychologie (z. B. Fokus- vs. Begegnungszonen), Markenwirkung und relevanten Interior-/Fassadentrends. Wir übersetzen Trends jedoch stets in dauerhafte, alltagstaugliche Lösungen.'
+  },
+  {
+    question: 'Können wir ausserhalb der Geschäftszeiten Termine wahrnehmen?',
+    answer: 'Gerne. Workshops, Bemusterungen und Ausführung können auf Randzeiten/Weekend gelegt werden, um den Betrieb nicht zu stören.'
+  },
+  {
+    question: 'Bieten Sie Visualisierungen und Musterflächen an?',
+    answer: 'Ja. Je nach Paket erhalten Sie digitale Visualisierungen (2–3 Varianten) sowie Musterfächer/Handmuster. Für die finale Entscheidung empfehlen wir Musterflächen direkt am Objekt.'
+  },
+  {
+    question: 'Wie schnell erhalten wir eine Offerte?',
+    answer: 'In der Regel innerhalb von 24–48 Stunden nach Besichtigung und Briefing. Für komplexe Projekte informieren wir transparent über den genauen Zeitplan.'
+  },
+  {
+    question: 'In welchem Gebiet sind Sie tätig?',
+    answer: 'Wir sind in Winterthur und Umgebung aktiv (Grossraum Zürich, Schaffhausen, Frauenfeld). Auf Anfrage übernehmen wir auch grössere Projekte in der Deutschschweiz.'
+  },
+  {
+    question: 'Welche Garantien und Zertifizierungen bieten Sie?',
+    answer: 'Als zertifizierter Fachbetrieb (u. a. SMGV) arbeiten wir nach anerkannten Standards. Auf Ausführungsarbeiten gewähren wir 5 Jahre Garantie.'
+  }
+];
+---
+
+<Layout
+    title={pageTitle}
+    description={pageDescription}
+>
+  <Navigation/>
+  <SharedServiceHero title="Farbberatung / Farbkonzepte"
+                     subtitle="Farbkonzepte für Unternehmen, Büros und Gewerbeflächen"
+                     description="Farben wirken – auf Mitarbeitende, Kundschaft und Markenwahrnehmung. Wir entwickeln harmonische, funktionsorientierte Farbkonzepte nach Farbpsychologie und aktuellen Trends."/>
+  <SharedServiceDetails title="Farbberatung für Unternehmen in Winterthur"
+                        subtitle="Durchdachte Farbkonzepte schaffen Orientierung, steigern Produktivität und stärken Ihre Marke – innen wie aussen."
+                        services={detailsServices} rightPanel={detailsRightPanel}/>
+  <SharedWorkProcess title="Vom Briefing zum wirksamen Farbkonzept"
+                     subtitle="Strukturiert, effizient und auf Gewerbekunden ausgelegt – für verlässliche Entscheidungen."
+                     steps={processSteps}/>
+  <SharedServiceBenefits title="Warum Farbberatung mit MS Maler?"
+                         subtitle="Wir verbinden Farbpsychologie, Trends und Ihre Markenstrategie zu stimmigen Konzepten – praxistauglich und wirtschaftlich."
+                         benefits={benefits} testimonial={testimonial} badges={benefitBadges}/>
+  <SharedServiceGallery title="Farbkonzepte aus der Praxis"
+                        subtitle="Ausgewählte Beispiele aus Winterthur und Umgebung – innen und aussen."
+                        categories={galleryCategories} items={galleryItems}/>
+  <SharedServiceFAQ title="Häufig gestellte Fragen zur Farbberatung"
+                    subtitle="Alles Wichtige zu Ablauf, Terminen, Visualisierungen und Regionen."
+                    items={faqItems}/>
+  <CTA/>
+  <Footer/>
+</Layout>
+
+<script>
+  // Performance monitoring
+  if ('PerformanceObserver' in window) {
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        console.log(`${entry.name}: ${entry.duration}ms`);
+      });
+    });
+    observer.observe({entryTypes: ['paint', 'largest-contentful-paint']});
+  }
+
+  // Intersection Observer for lazy loading and animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -100px 0px',
+    threshold: 0.1
+  };
+
+  const animateOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-up');
+        animateOnScroll.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      animateOnScroll.observe(el);
+    });
+  });
+</script>
+
+<style>
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  [data-animate].animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

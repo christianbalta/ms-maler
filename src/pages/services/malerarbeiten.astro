@@ -1,35 +1,347 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/shared/Navigation.astro';
-import MalerarbeitenHero from '../../components/malerarbeiten/MalerarbeitenHero.astro';
-import ServiceDetails from '../../components/malerarbeiten/ServiceDetails.astro';
-import WorkProcess from '../../components/malerarbeiten/WorkProcess.astro';
-import ServiceBenefits from '../../components/malerarbeiten/ServiceBenefits.astro';
-import ServiceGallery from '../../components/malerarbeiten/ServiceGallery.astro';
-import PricingSection from '../../components/malerarbeiten/PricingSection.astro';
-import ServiceFAQ from '../../components/malerarbeiten/ServiceFAQ.astro';
+import SharedServiceHero from '../../components/shared/services/ServiceHero.astro';
+import SharedServiceDetails from '../../components/shared/services/ServiceDetails.astro';
+import SharedWorkProcess, {
+  type ProcessStep
+} from '../../components/shared/services/WorkProcess.astro';
+import SharedServiceBenefits, {
+  type BenefitItem,
+  type BadgeItem
+} from '../../components/shared/services/ServiceBenefits.astro';
+import SharedServiceGallery, {
+  type GalleryItem
+} from '../../components/shared/services/ServiceGallery.astro';
+import SharedPricingSection, {
+  type PricingPlan,
+  type ExtraInfoBox
+} from '../../components/shared/services/PricingSection.astro';
+import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
 import CTA from '../../components/shared/CTA.astro';
 import Footer from '../../components/shared/Footer.astro';
 
 // SEO metadata
 const pageTitle = "Malerarbeiten Winterthur | Professionelle Malerservices - MS Maler";
 const pageDescription = "Professionelle Malerarbeiten in Winterthur und Umgebung. Innenraumgestaltung, Fassadenarbeiten, Renovationen und mehr. Kostenlose Beratung und faire Preise.";
+
+// Content for shared components
+const detailsServices = [
+  {
+    icon: 'fa-paint-roller',
+    title: 'Innenraumgestaltung',
+    description: 'Perfekte Wandgestaltung für Ihre Arbeitsräume',
+    features: ['Präzise Wandanstriche', 'Dekorative Techniken', 'Tapezierarbeiten', 'Lackierungen']
+  },
+  {
+    icon: 'fa-building',
+    title: 'Fassadenarbeiten',
+    description: 'Schutz und Verschönerung Ihrer Gebäudefassade',
+    features: ['Fassadenrenovation', 'Wetterschutz', 'Graffitischutz', 'Wärmedämmung']
+  },
+  {
+    icon: 'fa-home',
+    title: 'Renovationen',
+    description: 'Komplette Renovierungsprojekte aus einer Hand',
+    features: ['Altbausanierung', 'Neubauprojekte', 'Umbauten', 'Notfallservice']
+  },
+  {
+    icon: 'fa-palette',
+    title: 'Spezialarbeiten',
+    description: 'Individuelle Lösungen für besondere Anforderungen',
+    features: ['Spachteltechniken', 'Vergoldungen', 'Stuckaturen', 'Betonoptik']
+  }
+] satisfies import('../../components/shared/services/ServiceDetails.astro').ServiceItem[];
+
+const detailsRightPanel = {
+  title: 'Warum MS Maler wählen?',
+  paragraph: 'Mit über 20 Jahren Erfahrung und hunderten zufriedenen Kunden sind wir Ihr zuverlässiger Partner für alle Malerarbeiten in Winterthur und Umgebung.',
+  bullets: [
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Kostenlose Erstberatung und Offerte'
+    },
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Festpreisgarantie ohne versteckte Kosten'
+    },
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Termingerechte Ausführung garantiert'
+    }
+  ],
+  rating: {value: '5/5', label: 'Kundenzufriedenheit', basedOn: 'Basierend auf 20+ Bewertungen'}
+} satisfies import('../../components/shared/services/ServiceDetails.astro').RightPanel;
+
+const processSteps: ProcessStep[] = [
+  {
+    number: '01',
+    title: 'Kontaktaufnahme',
+    description: 'Nehmen Sie Kontakt mit uns auf - per Telefon, E-Mail oder über unser Kontaktformular.',
+    icon: 'fa-phone',
+    duration: 'Sofort'
+  },
+  {
+    number: '02',
+    title: 'Beratung & Besichtigung',
+    description: 'Wir besichtigen Ihr Objekt und beraten Sie zu Farben, Materialien und Techniken.',
+    icon: 'fa-clipboard-check',
+    duration: '1-2 Tage'
+  },
+  {
+    number: '03',
+    title: 'Offerte',
+    description: 'Sie erhalten eine detaillierte, transparente Offerte mit Festpreisgarantie.',
+    icon: 'fa-file-invoice',
+    duration: '24-48h'
+  },
+  {
+    number: '04',
+    title: 'Terminplanung',
+    description: 'Nach Auftragserteilung planen wir gemeinsam den optimalen Zeitpunkt für die Arbeiten.',
+    icon: 'fa-calendar-check',
+    duration: 'Flexibel'
+  },
+  {
+    number: '05',
+    title: 'Ausführung',
+    description: 'Professionelle und saubere Ausführung aller vereinbarten Malerarbeiten.',
+    icon: 'fa-paint-brush',
+    duration: 'Nach Vereinbarung'
+  },
+  {
+    number: '06',
+    title: 'Qualitätskontrolle',
+    description: 'Gemeinsame Abnahme und Sicherstellung Ihrer vollsten Zufriedenheit.',
+    icon: 'fa-award',
+    duration: 'Am Ende'
+  }
+];
+
+const benefits: BenefitItem[] = [
+  {
+    icon: 'fa-shield-alt',
+    title: 'Qualitätsgarantie',
+    description: '5 Jahre Garantie auf alle unsere Arbeiten. Wir stehen zu unserer Qualität.'
+  },
+  {
+    icon: 'fa-clock',
+    title: 'Pünktlichkeit',
+    description: 'Termintreue ist für uns selbstverständlich. Ihre Zeit ist kostbar.'
+  },
+  {
+    icon: 'fa-leaf',
+    title: 'Umweltfreundlich',
+    description: 'Verwendung umweltschonender Farben und nachhaltiger Arbeitsmethoden.'
+  },
+  {
+    icon: 'fa-certificate',
+    title: 'Zertifiziert',
+    description: 'Ausgebildete Fachkräfte mit allen notwendigen Zertifikationen.'
+  },
+  {
+    icon: 'fa-broom',
+    title: 'Saubere Arbeit',
+    description: 'Professioneller Schutz Ihrer Möbel und gründliche Reinigung nach Abschluss.'
+  },
+  {
+    icon: 'fa-coins',
+    title: 'Faire Preise',
+    description: 'Transparente Preisgestaltung ohne versteckte Kosten. Festpreisgarantie.'
+  }
+];
+
+const benefitBadges: BadgeItem[] = [
+  {iconClass: 'fas fa-check-circle text-green-500', label: 'Versichert'},
+  {iconClass: 'fas fa-award text-[var(--color-paint-accent)]', label: 'Ausgezeichnet'},
+  {iconClass: 'fas fa-handshake text-[var(--color-trust)]', label: 'Vertrauenswürdig'}
+];
+
+const testimonial = {
+  quote: 'Ein echter Retter in der Not - mit Herz, Verstand und Können. Wir standen vor einem handwerklichen Desaster: schlechte Vorarbeit, wenig Zeit und der Anspruch, es dennoch richtig gut zu machen. Dann kam Mauro Sgrò. Und mit ihm ein Team, das nicht nur übernommen, sondern die Situation mit beeindruckender Ruhe, Präzision und Verantwortung getragen hat.',
+  avatarInitials: 'MK',
+  name: 'Dalias Bar',
+  roleOrLocation: 'Winterthur'
+} satisfies import('../../components/shared/services/ServiceBenefits.astro').Testimonial;
+
+const galleryCategories = ["Alle", "Innenraum", "Fassade", "Gewerbe"];
+const galleryItems: GalleryItem[] = [
+  {
+    id: '1',
+    title: 'Moderne Wohnzimmergestaltung',
+    category: 'Innenraum',
+    imageUrl: '/images/gallery/living-room.jpg',
+    description: 'Elegante Farbkombination in Grautönen'
+  },
+  {
+    id: '2',
+    title: 'Fassadenrenovation Altstadt',
+    category: 'Fassade',
+    imageUrl: '/images/gallery/facade-1.jpg',
+    description: 'Historische Fassade fachgerecht renoviert'
+  },
+  {
+    id: '3',
+    title: 'Büroräume Winterthur',
+    category: 'Gewerbe',
+    imageUrl: '/images/gallery/office.jpg',
+    description: 'Professionelle Gestaltung für produktive Arbeitsumgebung'
+  },
+  {
+    id: '4',
+    title: 'Kinderzimmer Traumwelt',
+    category: 'Innenraum',
+    imageUrl: '/images/gallery/kids-room.jpg',
+    description: 'Kreative Wandgestaltung mit Motivmalerei'
+  },
+  {
+    id: '5',
+    title: 'Restaurant Innenausbau',
+    category: 'Gewerbe',
+    imageUrl: '/images/gallery/restaurant.jpg',
+    description: 'Atmosphärische Raumgestaltung für Gastronomie'
+  },
+  {
+    id: '6',
+    title: 'Villa Aussenfassade',
+    category: 'Fassade',
+    imageUrl: '/images/gallery/villa.jpg',
+    description: 'Komplette Fassadensanierung mit Wärmedämmung'
+  }
+];
+
+const faqItems: FAQItem[] = [
+  {
+    question: 'Wie lange dauern Malerarbeiten in Geschäftsräumen?',
+    answer: 'Die Dauer hängt von der Fläche und den betrieblichen Anforderungen ab. Kleinere Büroräume sind oft in 1–2 Tagen fertiggestellt, grössere Objekte oder ganze Etagen benötigen in der Regel 3–7 Tage. Wir planen die Arbeiten so, dass Ihr Betrieb möglichst ungestört weiterlaufen kann.'
+  },
+  {
+    question: 'Können die Arbeiten ausserhalb der Geschäftszeiten durchgeführt werden?',
+    answer: 'Ja, wir bieten flexible Arbeitszeiten an – auch abends oder am Wochenende. So stellen wir sicher, dass Ihre Geschäftsabläufe nicht beeinträchtigt werden.'
+  },
+  {
+    question: 'Welche Farben und Materialien verwenden Sie für Geschäftsräume?',
+    answer: 'Wir setzen auf langlebige, abriebfeste und umweltfreundliche Qualitätsfarben namhafter Hersteller. Auf Wunsch bieten wir auch spezielle Lösungen für stark frequentierte Bereiche oder Corporate-Design-Farbtöne an.'
+  },
+  {
+    question: 'Wie gewährleisten Sie Sauberkeit und Sicherheit während der Arbeiten?',
+    answer: 'Wir arbeiten stets sauber, strukturiert und mit klar abgegrenzten Arbeitsbereichen. Böden, Möbel und technische Geräte werden professionell abgedeckt. Nach Abschluss der Arbeiten wird alles gründlich gereinigt und betriebsbereit hinterlassen.'
+  },
+  {
+    question: 'Bieten Sie auch Beratung zu Farbkonzepten im Firmenkontext an?',
+    answer: 'Ja, wir entwickeln auf Wunsch komplette Farb- und Gestaltungskonzepte, die zu Ihrem Corporate Design und Ihrer Markenidentität passen – ideal für Büros, Praxen, Shops und Empfangsbereiche.'
+  },
+  {
+    question: 'Wie läuft die Angebotserstellung ab?',
+    answer: 'Nach einem kostenlosen Besichtigungstermin analysieren wir Ihre Anforderungen und erstellen innerhalb von 24–48 Stunden eine detaillierte, transparente Offerte mit allen Leistungen, Materialien und Zeitplan.'
+  },
+  {
+    question: 'Welche Garantie bieten Sie auf Ihre Arbeiten?',
+    answer: 'Wir gewähren 5 Jahre Garantie auf unsere Malerarbeiten, sowohl auf die Ausführung als auch auf die Materialien. Sollte nach Abschluss etwas nicht zu Ihrer Zufriedenheit sein, reagieren wir umgehend.'
+  },
+  {
+    question: 'In welchen Regionen führen Sie Aufträge für Unternehmen aus?',
+    answer: 'Unser Einsatzgebiet umfasst Winterthur und den Grossraum Zürich, Schaffhausen, Frauenfeld und Umgebung. Für grössere Gewerbeprojekte sind auch Einsätze in der gesamten Deutschschweiz möglich.'
+  }
+];
+
+const pricingPlans: PricingPlan[] = [
+  {
+    name: 'Basis',
+    description: 'Einfache Malerarbeiten',
+    priceRange: '35-45',
+    unit: 'CHF/m²',
+    features: [
+      {included: true, text: 'Wandanstrich (1-2 Farben)'},
+      {included: true, text: 'Grundierung bei Bedarf'},
+      {included: true, text: 'Abdeckarbeiten'},
+      {included: true, text: 'Endreinigung'},
+      {included: false, text: 'Spachteltechniken'},
+      {included: false, text: 'Dekorative Elemente'}
+    ]
+  },
+  {
+    name: 'Premium',
+    description: 'Komplette Raumgestaltung',
+    priceRange: '55-75',
+    unit: 'CHF/m²',
+    features: [
+      {included: true, text: 'Alle Basis-Leistungen'},
+      {included: true, text: 'Farbberatung inklusive'},
+      {included: true, text: 'Spachteltechniken'},
+      {included: true, text: 'Mehrfarbige Gestaltung'},
+      {included: true, text: 'Kleine Reparaturen'},
+      {included: true, text: 'Premium-Farben'}
+    ],
+    highlighted: true
+  },
+  {
+    name: 'Individuell',
+    description: 'Massgeschneiderte Lösungen',
+    priceRange: 'Auf Anfrage',
+    unit: '',
+    features: [
+      {included: true, text: 'Alle Premium-Leistungen'},
+      {included: true, text: 'Spezialeffekte & Techniken'},
+      {included: true, text: 'Vergoldungen & Stuckaturen'},
+      {included: true, text: 'Projektmanagement'},
+      {included: true, text: 'Flexibles Timing'},
+      {included: true, text: 'Garantieverlängerung'}
+    ]
+  }
+];
+
+const pricingExtraInfo: ExtraInfoBox = {
+  title: 'Wichtige Informationen zu unseren Preisen',
+  bullets: [
+    {
+      iconClass: 'fas fa-info-circle text-[var(--color-paint-blue)]',
+      text: 'Alle Preise verstehen sich inklusive Material und MwSt.'
+    },
+    {
+      iconClass: 'fas fa-info-circle text-[var(--color-paint-blue)]',
+      text: 'Kostenlose Besichtigung und Offerte für alle Projekte'
+    },
+    {
+      iconClass: 'fas fa-info-circle text-[var(--color-paint-blue)]',
+      text: 'Festpreisgarantie nach Auftragserteilung'
+    },
+    {
+      iconClass: 'fas fa-info-circle text-[var(--color-paint-blue)]',
+      text: 'Rabatte für Grossprojekte und Stammkunden möglich'
+    }
+  ],
+  cta: {href: 'tel:+41XXXXXXXXX', label: 'Kostenlose Beratung', iconClass: 'fas fa-phone'}
+};
 ---
 
 <Layout
     title={pageTitle}
     description={pageDescription}
 >
-  <Navigation />
-  <MalerarbeitenHero />
-  <ServiceDetails />
-  <WorkProcess />
-  <ServiceBenefits />
-  <ServiceGallery />
-  <PricingSection />
-  <ServiceFAQ />
-  <CTA />
-  <Footer />
+  <Navigation/>
+  <SharedServiceHero title="Malerarbeiten" subtitle="Effiziente Malerarbeiten für Gewerbe, Büros und Praxen" description="Von der ersten Beratung bis zum letzten Pinselstrich – wir bringen Farbe in Ihr Geschäft mit höchster Qualität und Präzision. Über 15 Jahre Erfahrung in Winterthur."/>
+  <SharedServiceDetails title="Malerarbeiten für jeden Bedarf"
+                        subtitle="Von kleinen Ausbesserungen bis zu Grossprojekten – wir bieten massgeschneiderte Lösungen für Geschäftskunden."
+                        services={detailsServices} rightPanel={detailsRightPanel}/>
+  <SharedWorkProcess title="Schritt für Schritt zu Ihrem Wunschprojekt"
+                     subtitle="Ein strukturierter Ablauf garantiert beste Ergebnisse und zufriedene Kunden."
+                     steps={processSteps}/>
+  <SharedServiceBenefits title="Warum Kunden uns vertrauen"
+                         subtitle="Qualität, Zuverlässigkeit und faire Preise – das macht uns zu Ihrem idealen Partner."
+                         benefits={benefits} testimonial={testimonial} badges={benefitBadges}/>
+  <SharedServiceGallery title="Unsere Referenzprojekte"
+                        subtitle="Lassen Sie sich von unseren abgeschlossenen Projekten inspirieren."
+                        categories={galleryCategories} items={galleryItems}
+                        viewMoreHref="/portfolio"/>
+  <SharedPricingSection title="Transparente Preisgestaltung"
+                        subtitle="Faire Preise ohne versteckte Kosten. Wählen Sie das passende Paket für Ihr Projekt."
+                        plans={pricingPlans} extraInfo={pricingExtraInfo}/>
+  <SharedServiceFAQ title="Häufig gestellte Fragen"
+                    subtitle="Hier finden Sie Antworten auf die wichtigsten Fragen zu unseren Malerarbeiten."
+                    items={faqItems}/>
+  <CTA/>
+  <Footer/>
 </Layout>
 
 <script>
@@ -41,7 +353,7 @@ const pageDescription = "Professionelle Malerarbeiten in Winterthur und Umgebung
         console.log(`${entry.name}: ${entry.duration}ms`);
       });
     });
-    observer.observe({ entryTypes: ['paint', 'largest-contentful-paint'] });
+    observer.observe({entryTypes: ['paint', 'largest-contentful-paint']});
   }
 
   // Intersection Observer for lazy loading and animations

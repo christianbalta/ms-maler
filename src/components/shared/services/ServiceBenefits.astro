@@ -1,0 +1,103 @@
+---
+export interface BenefitItem {
+  icon: string; // font awesome class suffix, e.g., 'fa-leaf'
+  title: string;
+  description: string;
+}
+
+export interface BadgeItem {
+  iconClass: string; // full FA class e.g., 'fas fa-award'
+  label: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  avatarInitials?: string;
+  name?: string;
+  roleOrLocation?: string;
+}
+
+export interface ServiceBenefitsProps {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  benefits: BenefitItem[];
+  testimonial?: Testimonial;
+  badges?: BadgeItem[];
+}
+
+const {
+  eyebrow = 'Ihre Vorteile',
+  title,
+  subtitle,
+  benefits,
+  testimonial,
+  badges = []
+} = Astro.props as ServiceBenefitsProps;
+---
+
+<section class="py-20 sm:py-24 bg-white overflow-hidden" data-animate>
+  <div class="container mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div>
+        <p class="text-xs tracking-[0.18em] text-[var(--color-professional)] font-medium uppercase mb-3">{eyebrow}</p>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-5">{title}</h2>
+        {subtitle && (<p class="text-lg text-gray-600 mb-8">{subtitle}</p>)}
+        <div class="grid sm:grid-cols-2 gap-6">
+          {benefits.map((benefit, index) => (
+            <div class="flex gap-4 group" style={`animation-delay: ${index * 50}ms`}>
+              <div class="flex-shrink-0">
+                <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[var(--color-paint-blue)]/10 to-[var(--color-trust)]/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <i class={`fas ${benefit.icon} text-[var(--color-paint-blue)]`} aria-hidden="true"></i>
+                </div>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-1">{benefit.title}</h3>
+                <p class="text-sm text-gray-600">{benefit.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute -top-10 -right-10 w-72 h-72 bg-gradient-to-br from-[var(--color-paint-accent)]/20 to-[var(--color-paint-warm)]/20 rounded-full blur-3xl"></div>
+        <div class="bg-white rounded-2xl shadow-xl p-6 relative">
+          <div class="absolute -top-4 left-6">
+            <div class="bg-[var(--color-paint-accent)] rounded-full p-3">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+            </div>
+          </div>
+          {testimonial && (
+            <blockquote class="pt-4">
+              <p class="text-gray-700 mb-4 italic">"{testimonial.quote}"</p>
+              {(testimonial.name || testimonial.avatarInitials) && (
+                <footer class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">
+                    {testimonial.avatarInitials || '—'}
+                  </div>
+                  <div>
+                    {testimonial.name && (<div class="font-semibold text-gray-900">{testimonial.name}</div>)}
+                    {testimonial.roleOrLocation && (<div class="text-sm text-gray-500">{testimonial.roleOrLocation}</div>)}
+                  </div>
+                </footer>
+              )}
+            </blockquote>
+          )}
+        </div>
+        {badges.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-4 justify-center">
+            {badges.map((b) => (
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full">
+                <i class={b.iconClass} aria-hidden="true"></i>
+                <span class="text-sm font-medium text-gray-700">{b.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

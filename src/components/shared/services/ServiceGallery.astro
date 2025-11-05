@@ -11,7 +11,7 @@ export interface ServiceGalleryProps {
   eyebrow?: string;
   title: string;
   subtitle?: string;
-  categories: string[];
+  categories?: string[];
   items: GalleryItem[];
   viewMoreHref?: string;
   viewMoreLabel?: string;
@@ -21,7 +21,6 @@ const {
   eyebrow = 'Portfolio',
   title,
   subtitle,
-  categories,
   items,
   viewMoreHref,
   viewMoreLabel = 'Alle Projekte ansehen'
@@ -36,17 +35,6 @@ const {
       {subtitle && (<p class="text-lg text-gray-600">{subtitle}</p>)}
     </div>
 
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
-      {categories.map((category) => (
-        <button
-          class={`gallery-filter px-6 py-2 rounded-full font-medium transition-all duration-300 focus-ring ${category === categories[0] ? 'bg-gray-900 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
-          data-category={category}
-          aria-label={`Filter nach ${category}`}
-        >
-          {category}
-        </button>
-      ))}
-    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
       {items.map((item, index) => (
@@ -88,30 +76,3 @@ const {
   </div>
 </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const filterButtons = document.querySelectorAll('.gallery-filter');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const category = button.getAttribute('data-category');
-        filterButtons.forEach(btn => {
-          btn.classList.remove('bg-gray-900', 'text-white');
-          btn.classList.add('bg-white', 'text-gray-700');
-        });
-        button.classList.remove('bg-white', 'text-gray-700');
-        button.classList.add('bg-gray-900', 'text-white');
-
-        galleryItems.forEach(item => {
-          const itemCategory = item.getAttribute('data-category');
-          if (category === filterButtons[0].getAttribute('data-category') || itemCategory === category) {
-            (item as HTMLElement).style.display = 'block';
-          } else {
-            (item as HTMLElement).style.display = 'none';
-          }
-        });
-      });
-    });
-  });
-</script>

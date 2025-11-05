@@ -16,6 +16,18 @@ import SharedServiceGallery, {
 import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
 import CTA from '../../components/shared/CTA.astro';
 import Footer from '../../components/shared/Footer.astro';
+import galleryImage_Neubau_Innenraum_mit_Holzverkleidung
+  from '../../assets/images/gallery/Neubau_Innenraum_mit_Holzverkleidung.jpeg';
+import galleryImage_Neubau_Wohnraum_mit_Holzboeden_und_Kueche
+  from '../../assets/images/gallery/Neubau_Wohnraum_mit_Holzboeden_und_Kueche.jpeg';
+import galleryImage_Wandgestaltung_mit_Spruch_im_Restaurant
+  from '../../assets/images/gallery/Wandgestaltung_mit_Spruch_im_Restaurant.jpeg';
+import galleryImage_Zimmer_mit_Holzverkleidung_und_Parkett
+  from '../../assets/images/gallery/Zimmer_mit_Holzverkleidung_und_Parkett.jpeg';
+import galleryImage_Stucco_Wand_mit_Holzbalken
+  from '../../assets/images/gallery/Stucco_Wand_mit_Holzbalken.jpeg';
+import galleryImage_Restaurant_in_Winterthur_mit_Holzbalkendecke
+  from '../../assets/images/gallery/Restaurant_in_Winterthur_mit_Holzbalkendecke.jpeg';
 
 // SEO metadata
 const pageTitle = "Spritzarbeiten Winterthur | Professionelle Spritzlackierungen für Gewerbe - MS Maler";
@@ -107,10 +119,17 @@ const processSteps: ProcessStep[] = [
   }
 ];
 
+const testimonial = {
+  quote: 'Ein echter Retter in der Not - mit Herz, Verstand und Können. Wir standen vor einem handwerklichen Desaster: schlechte Vorarbeit, wenig Zeit und der Anspruch, es dennoch richtig gut zu machen. Dann kam Mauro Sgrò. Und mit ihm ein Team, das nicht nur übernommen, sondern die Situation mit beeindruckender Ruhe, Präzision und Verantwortung getragen hat.',
+  avatarInitials: 'MK',
+  name: 'Dalias Bar',
+  roleOrLocation: 'Winterthur'
+} satisfies import('../../components/shared/services/ServiceBenefits.astro').Testimonial;
+
 const benefitBadges: BadgeItem[] = [
-  {iconClass: 'fa-stopwatch', label: 'Schnelle Ausführung'},
-  {iconClass: 'fa-pump-soap', label: 'Saubere Prozesse'},
-  {iconClass: 'fa-certificate', label: 'Profi-Qualität'}
+  {iconClass: 'fas fa-stopwatch text-[var(--color-paint-accent)]', label: 'Schnelle Ausführung'},
+  {iconClass: 'fas fa-pump-soap', label: 'Saubere Prozesse'},
+  {iconClass: 'fas fa-certificate text-green-500', label: 'Profi-Qualität'}
 ];
 
 const benefits: BenefitItem[] = [
@@ -139,31 +158,45 @@ const benefits: BenefitItem[] = [
 const galleryItems: GalleryItem[] = [
   {
     id: '1',
-    title: 'Türen & Zargen',
-    category: 'Innenausbau',
-    imageUrl: '/images/gallery/doors.jpg',
-    description: 'PU-Lackierung mit hoher Kantenfestigkeit'
+    title: 'Neubau – Innenraum mit Holzverkleidung',
+    category: 'Innenraum',
+    image: galleryImage_Neubau_Innenraum_mit_Holzverkleidung,
+    description: 'Helle Flächen und warme Holzverkleidung – klare, ruhige Gestaltung.'
   },
   {
     id: '2',
-    title: 'Metallbauteile',
-    category: 'Industrie',
-    imageUrl: '/images/gallery/metal.jpg',
-    description: 'Korrosionsschutzsystem mit Decklack'
+    title: 'Neubau – Wohnraum mit Küche',
+    category: 'Innenraum',
+    image: galleryImage_Neubau_Wohnraum_mit_Holzboeden_und_Kueche,
+    description: 'Offener Wohnbereich mit Holzboden und integrierter Küche.'
   },
   {
     id: '3',
-    title: 'Einbaumöbel',
-    category: 'Innenausbau',
-    imageUrl: '/images/gallery/furniture.jpg',
-    description: 'Feinschliff und seidenmatter Topcoat'
+    title: 'Wandgestaltung im Restaurant',
+    category: 'Gewerbe',
+    image: galleryImage_Wandgestaltung_mit_Spruch_im_Restaurant,
+    description: 'Statement-Wand mit typografischem Element und stimmigem Licht.'
   },
   {
     id: '4',
-    title: 'Hallendecke',
+    title: 'Zimmer – Holz & Parkett',
+    category: 'Innenraum',
+    image: galleryImage_Zimmer_mit_Holzverkleidung_und_Parkett,
+    description: 'Reduziertes Interieur mit natürlichen Materialien.'
+  },
+  {
+    id: '5',
+    title: 'Stucco-Wand mit Holzbalken',
     category: 'Gewerbe',
-    imageUrl: '/images/gallery/hall.jpg',
-    description: 'Airless-Beschichtung grosser Deckenflächen'
+    image: galleryImage_Stucco_Wand_mit_Holzbalken,
+    description: 'Strukturierte Wandoptik, warmes Ambiente – zeitlos und hochwertig.'
+  },
+  {
+    id: '6',
+    title: 'Restaurant mit Holzbalkendecke',
+    category: 'Gewerbe',
+    image: galleryImage_Restaurant_in_Winterthur_mit_Holzbalkendecke,
+    description: 'Gemütlicher Gastraum mit charaktervoller Decke und klaren Linien.'
   }
 ];
 
@@ -206,11 +239,12 @@ const faqItems: FAQItem[] = [
 
   <SharedServiceBenefits title="Ihre Vorteile mit Spritzarbeiten"
                          subtitle="Qualität, Effizienz und Planbarkeit – darauf können Sie sich verlassen."
-                         badges={benefitBadges} benefits={benefits}/>
+                         badges={benefitBadges} benefits={benefits} testimonial={testimonial}/>
 
-  <SharedServiceGallery title="Referenzen Spritzarbeiten"
+  <SharedServiceGallery title="Unsere Referenzprojekte"
                         subtitle="Ausgewählte Beispiele aus Winterthur und Umgebung"
-                        categories={galleryCategories} items={galleryItems}/>
+                        categories={galleryCategories} items={galleryItems}
+                        viewMoreHref="/projekte"/>
 
   <SharedServiceFAQ title="Häufige Fragen zu Spritzarbeiten"
                     subtitle="Wissenswertes rund um Technik, Ablauf und Preise."

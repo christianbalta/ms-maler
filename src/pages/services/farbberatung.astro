@@ -16,6 +16,18 @@ import SharedServiceGallery, {
 import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
 import CTA from '../../components/shared/CTA.astro';
 import Footer from '../../components/shared/Footer.astro'
+import galleryImage_Buerointerieur_mit_Wendeltreppe
+  from '../../assets/images/gallery/Buerointerieur_mit_Wendeltreppe.jpg';
+import galleryImage_Eingangsbereich_mit_Akzentwand_und_Betontreppe
+  from '../../assets/images/gallery/Eingangsbereich_mit_Akzentwand_und_Betontreppe.jpeg';
+import galleryImage_Flur_mit_Holzboden_und_hellen_Waenden
+  from '../../assets/images/gallery/Flur_mit_Holzboden_und_hellen_Waenden.jpeg';
+import galleryImage_Industriehalle_Aussenfassade_Winterthur
+  from '../../assets/images/gallery/Industriehalle_Aussenfassade_Winterthur.jpeg';
+import galleryImage_Tiefgarage_mit_Aufzug_und_farbiger_Bodenbeschichtung
+  from '../../assets/images/gallery/Tiefgarage_mit_Aufzug_und_farbiger_Bodenbeschichtung.jpeg';
+import galleryImage_Zimmer_mit_Balkonzugang_und_Holzverkleidung
+  from '../../assets/images/gallery/Zimmer_mit_Balkonzugang_und_Holzverkleidung.jpeg';
 
 // SEO metadata
 const pageTitle = "Farbberatung Winterthur | Farbkonzepte für Unternehmen - MS Maler";
@@ -182,45 +194,45 @@ const galleryCategories = ['Alle', 'Innenraum', 'Gewerbe', 'Fassade'];
 const galleryItems: GalleryItem[] = [
   {
     id: '1',
-    title: 'Büro-Farbkonzept',
+    title: 'Modernes Büro mit Wendeltreppe',
     category: 'Innenraum',
-    imageUrl: '/images/gallery/office.jpg',
-    description: 'Zonenfarben für Fokus, Meeting und Lounge'
+    image: galleryImage_Buerointerieur_mit_Wendeltreppe,
+    description: 'Klares Farbkonzept mit Akzentzone und Sichtbezug über die Wendeltreppe.'
   },
   {
     id: '2',
-    title: 'Praxis Empfang',
+    title: 'Eingangsbereich mit Akzentwand',
     category: 'Innenraum',
-    imageUrl: '/images/gallery/clinic.jpg',
-    description: 'Beruhigende Töne für Vertrauen und Hygiene'
+    image: galleryImage_Eingangsbereich_mit_Akzentwand_und_Betontreppe,
+    description: 'Gezielte Akzentfarbe führt Besucher und schafft Identität.'
   },
   {
     id: '3',
-    title: 'Gastronomie',
-    category: 'Gewerbe',
-    imageUrl: '/images/gallery/restaurant.jpg',
-    description: 'Warme Akzente für Aufenthaltsqualität'
+    title: 'Heller Flur mit Holzboden',
+    category: 'Innenraum',
+    image: galleryImage_Flur_mit_Holzboden_und_hellen_Waenden,
+    description: 'Harmonie aus warmen Materialien und ruhiger Wandfarbe.'
   },
   {
     id: '4',
-    title: 'Retailfläche',
-    category: 'Gewerbe',
-    imageUrl: '/images/gallery/retail.jpg',
-    description: 'Markengerechte Farbführung am POS'
+    title: 'Industriehalle Aussenfassade',
+    category: 'Fassade',
+    image: galleryImage_Industriehalle_Aussenfassade_Winterthur,
+    description: 'Robustes Fassadenkonzept mit klarer, orientierender Farbgebung.'
   },
   {
     id: '5',
-    title: 'Fassadenkonzept',
-    category: 'Fassade',
-    imageUrl: '/images/gallery/facade-1.jpg',
-    description: 'Ortsbildgerechte Aussenwirkung'
+    title: 'Tiefgarage mit Bodenbeschichtung',
+    category: 'Gewerbe',
+    image: galleryImage_Tiefgarage_mit_Aufzug_und_farbiger_Bodenbeschichtung,
+    description: 'Farbkodierung für Wegeführung, Sicherheit und Zonierung.'
   },
   {
     id: '6',
-    title: 'Bildung & Verwaltung',
+    title: 'Zimmer mit Balkonzugang',
     category: 'Innenraum',
-    imageUrl: '/images/gallery/classroom.jpg',
-    description: 'Farbkodierung für Orientierung'
+    image: galleryImage_Zimmer_mit_Balkonzugang_und_Holzverkleidung,
+    description: 'Natürliche Töne und Holzoberflächen für wohnliche Atmosphäre.'
   }
 ];
 
@@ -273,9 +285,10 @@ const faqItems: FAQItem[] = [
   <SharedServiceBenefits title="Warum Farbberatung mit MS Maler?"
                          subtitle="Wir verbinden Farbpsychologie, Trends und Ihre Markenstrategie zu stimmigen Konzepten – praxistauglich und wirtschaftlich."
                          benefits={benefits} testimonial={testimonial} badges={benefitBadges}/>
-  <SharedServiceGallery title="Farbkonzepte aus der Praxis"
+  <SharedServiceGallery title="Unsere Referenzprojekte"
                         subtitle="Ausgewählte Beispiele aus Winterthur und Umgebung – innen und aussen."
-                        categories={galleryCategories} items={galleryItems}/>
+                        categories={galleryCategories} items={galleryItems}
+                        viewMoreHref="/projekte"/>
   <SharedServiceFAQ title="Häufig gestellte Fragen zur Farbberatung"
                     subtitle="Alles Wichtige zu Ablauf, Terminen, Visualisierungen und Regionen."
                     items={faqItems}/>

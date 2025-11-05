@@ -1,4 +1,6 @@
 ---
+import {Image} from 'astro:assets';
+import logoWhite from "../../assets/images/logo-ms-maler-white.png";
 ---
 
 <footer class="bg-black text-white py-24">
@@ -6,9 +8,17 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
       <!-- Company Info -->
       <div>
-        <h3 class="text-xl font-bold mb-4">MS Maler Winterthur</h3>
+        <Image
+            src={logoWhite}
+            width={300}
+            height={100}
+            alt="Luxury modern interior design"
+            class="hero-image object-cover"
+            loading="eager"
+        />
         <p class="text-gray-400 mb-4">
-          Maler in Winterthur und Umgebung. Von einfachen Streicharbeiten bis hin zu Komplettrenovationen.
+          Maler Winterthur und Umgebung. Von einfachen Streicharbeiten bis hin zu
+          Komplettrenovationen.
         </p>
       </div>
 
@@ -16,11 +26,16 @@
       <div>
         <h3 class="text-xl font-bold mb-4">Quick Links</h3>
         <ul class="space-y-2">
-          <li><a href="#hero" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
-          <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">Leistungen</a></li>
-          <li><a href="#portfolio" class="text-gray-400 hover:text-white transition-colors">Portfolio</a></li>
-          <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Über uns</a></li>
-          <li><a href="#reviews" class="text-gray-400 hover:text-white transition-colors">Bewertungen</a></li>
+          <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Maler Winterthur</a></li>
+          <li><a href="/services/malerarbeiten" class="text-gray-400 hover:text-white transition-colors">Malerarbeiten Winterthur</a></li>
+          <li><a href="/services/farbberatung" class="text-gray-400 hover:text-white transition-colors">Farbberatung / Farbkonzepte Winterthur</a></li>
+          <li><a href="/services/spritzarbeiten" class="text-gray-400 hover:text-white transition-colors">Spritzarbeiten Winterthur</a></li>
+          <li><a href="/services" class="text-gray-400 hover:text-white transition-colors">Fassaden- & Aussenarbeiten Winterthur</a></li>
+          <li><a href="/projekte" class="text-gray-400 hover:text-white transition-colors">Projekte</a>
+          <li><a href="/kontakt" class="text-gray-400 hover:text-white transition-colors">Kontakt</a>
+          </li>
+          <li><a href="https://maps.app.goo.gl/ATeKutg7efSQ18KN6" target="_blank" class="text-gray-400 hover:text-white transition-colors">Bewertungen</a>
+          </li>
         </ul>
       </div>
 
@@ -30,7 +45,7 @@
         <ul class="space-y-2 text-gray-400">
           <li class="flex items-start">
             <i class="fas fa-phone mt-1 mr-3"></i>
-            <span>+41 XX XXX XX XX</span>
+            <span>+41 79 231 70 40</span>
           </li>
           <li class="flex items-start">
             <i class="fas fa-envelope mt-1 mr-3"></i>
@@ -38,18 +53,22 @@
           </li>
           <li class="flex items-start">
             <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
-            <span>Winterthur, Schweiz</span>
+            <span>Aspstrasse 8<br>
+              8472 Seuzach</span>
           </li>
         </ul>
         <!-- Social Media -->
         <div class="flex space-x-4 mt-6">
-          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"
+             aria-label="Facebook">
             <i class="fab fa-facebook-f text-xl"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"
+             aria-label="Instagram">
             <i class="fab fa-instagram text-xl"></i>
           </a>
-          <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"
+             aria-label="LinkedIn">
             <i class="fab fa-linkedin-in text-xl"></i>
           </a>
         </div>

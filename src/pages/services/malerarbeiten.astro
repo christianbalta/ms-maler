@@ -23,7 +23,7 @@ import Footer from '../../components/shared/Footer.astro';
 import galleryImage_Stucco_Wand_mit_Holzbalken from '../../assets/images/gallery/Stucco_Wand_mit_Holzbalken.jpeg';
 import galleryImage_Restaurant_in_Winterthur_mit_Holzbalkendecke from '../../assets/images/gallery/Restaurant_in_Winterthur_mit_Holzbalkendecke.jpeg';
 import galleryImage_Balkon_mit_grauem_Holzboden_und_Sonnenlicht from '../../assets/images/gallery/Balkon_mit_grauem_Holzboden_und_Sonnenlicht.jpeg';
-import galleryImage_Balkon_mit_Holzboden_und_Herbstblick from '../../assets/images/gallery/Balkon_mit_Holzboden_und_Herbstblick.jpeg';
+import galleryImage_Zimmer_mit_Dachfenster_und_Holzverkleidung from '../../assets/images/gallery/Zimmer_mit_Dachfenster_und_Holzverkleidung.jpeg';
 import galleryImage_Restaurantwand_mit_Stucco_Effekt from '../../assets/images/gallery/Restaurantwand_mit_Stucco_Effekt.jpeg';
 import galleryImage_Neubauprojekt_Fassadenanstrich_Winterthur from '../../assets/images/gallery/Neubauprojekt_Fassadenanstrich_Winterthur.jpeg';
 
@@ -176,42 +176,42 @@ const galleryItems: GalleryItem[] = [
     id: '1',
     title: 'Stucco-Wand mit Holzbalken',
     category: 'Innenraum',
-    imageUrl: galleryImage_Stucco_Wand_mit_Holzbalken.src,
+    image: galleryImage_Stucco_Wand_mit_Holzbalken,
     description: 'Hochwertige Stucco-Technik mit edlem Glanzfinish unter rustikalen Holzbalken.'
   },
   {
     id: '2',
     title: 'Restaurant Innenraum in Winterthur',
     category: 'Gewerbe',
-    imageUrl: galleryImage_Restaurant_in_Winterthur_mit_Holzbalkendecke.src,
+    image: galleryImage_Restaurant_in_Winterthur_mit_Holzbalkendecke,
     description: 'Atmosphärische Raumgestaltung mit warmem Licht und Holzbalkendecke.'
   },
   {
     id: '3',
     title: 'Balkon mit grauem Holzboden',
     category: 'Aussenbereich',
-    imageUrl: galleryImage_Balkon_mit_grauem_Holzboden_und_Sonnenlicht.src,
+    image: galleryImage_Balkon_mit_grauem_Holzboden_und_Sonnenlicht,
     description: 'Pflegeleichter Anstrich für Aussenbereich mit langlebigem Schutz.'
   },
   {
     id: '4',
-    title: 'Balkon mit Herbstblick',
-    category: 'Aussenbereich',
-    imageUrl: galleryImage_Balkon_mit_Holzboden_und_Herbstblick.src,
-    description: 'Witterungsbeständige Beschichtung für Holzflächen im Aussenbereich.'
+    title: 'Zimmer mit Holzverkleidung',
+    category: 'Innenraum',
+    image: galleryImage_Zimmer_mit_Dachfenster_und_Holzverkleidung,
+    description: 'Helles Zimmer in Winterthur mit Holzverkleidung'
   },
   {
     id: '5',
     title: 'Restaurantwand mit Stucco-Effekt',
     category: 'Gewerbe',
-    imageUrl: galleryImage_Restaurantwand_mit_Stucco_Effekt.src,
+    image: galleryImage_Restaurantwand_mit_Stucco_Effekt,
     description: 'Edle Stucco-Wandgestaltung mit warmem Lichtambiente in einem Restaurant.'
   },
   {
     id: '6',
     title: 'Neubauprojekt Fassadenanstrich',
     category: 'Fassade',
-    imageUrl: galleryImage_Neubauprojekt_Fassadenanstrich_Winterthur.src,
+    image: galleryImage_Neubauprojekt_Fassadenanstrich_Winterthur,
     description: 'Modernes Neubauprojekt mit frisch gestrichener heller Fassade.'
   }
 ];
@@ -317,7 +317,7 @@ const pricingExtraInfo: ExtraInfoBox = {
       text: 'Rabatte für Grossprojekte und Stammkunden möglich'
     }
   ],
-  cta: {href: 'tel:+41XXXXXXXXX', label: 'Kostenlose Beratung', iconClass: 'fas fa-phone'}
+  cta: {href: 'tel:+41792317040', label: 'Kostenlose Beratung', iconClass: 'fas fa-phone'}
 };
 ---
 

@@ -16,6 +16,18 @@ import SharedServiceGallery, {
 import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
 import CTA from '../../components/shared/CTA.astro';
 import Footer from '../../components/shared/Footer.astro';
+import galleryImage_Orlando_Architektur_Umbau_Einfamilienhaus
+  from '../../assets/images/gallery/Orlando_Architektur_Umbau_Einfamilienhaus.jpg';
+import galleryImage_Balkon_mit_Holzboden_und_Herbstblick
+  from '../../assets/images/gallery/Balkon_mit_Holzboden_und_Herbstblick.jpeg';
+import galleryImage_Treppenhaus_mit_schwarzer_Wendeltreppe
+  from '../../assets/images/gallery/Treppenhaus_mit_schwarzer_Wendeltreppe.jpg';
+import galleryImage_Treppenhaus_mit_farbiger_Akzentwand
+  from '../../assets/images/gallery/Treppenhaus_mit_farbiger_Akzentwand.jpeg';
+import galleryImage_Wohnbereich_mit_Holzverkleidung_und_Parkett
+  from '../../assets/images/gallery/Wohnbereich_mit_Holzverkleidung_und_Parkett.jpeg';
+import galleryImage_Wohnraum_mit_Einbaukueche_und_Holzparkett
+  from '../../assets/images/gallery/Wohnraum_mit_Einbaukueche_und_Holzparkett.jpeg';
 
 // SEO metadata
 const pageTitle = "Fassaden- & Aussenarbeiten Winterthur | Schutz & Auftritt für Geschäftsgebäude";
@@ -108,10 +120,17 @@ const processSteps: ProcessStep[] = [
 ];
 
 const benefitBadges: BadgeItem[] = [
-  {iconClass: 'fa-shield-halved', label: 'Langlebiger Schutz'},
-  {iconClass: 'fa-calendar-check', label: 'Terminsicher'},
-  {iconClass: 'fa-city', label: 'Regional: Winterthur'}
+  {iconClass: 'fas fa-shield-halved text-[var(--color-paint-accent)]', label: 'Langlebiger Schutz'},
+  {iconClass: 'fas fa-calendar-check', label: 'Terminsicher'},
+  {iconClass: 'fas fa-city text-green-500', label: 'Regional: Winterthur'}
 ];
+
+const testimonial = {
+  quote: 'Ein echter Retter in der Not - mit Herz, Verstand und Können. Wir standen vor einem handwerklichen Desaster: schlechte Vorarbeit, wenig Zeit und der Anspruch, es dennoch richtig gut zu machen. Dann kam Mauro Sgrò. Und mit ihm ein Team, das nicht nur übernommen, sondern die Situation mit beeindruckender Ruhe, Präzision und Verantwortung getragen hat.',
+  avatarInitials: 'MK',
+  name: 'Dalias Bar',
+  roleOrLocation: 'Winterthur'
+} satisfies import('../../components/shared/services/ServiceBenefits.astro').Testimonial;
 
 const benefitItems: BenefitItem[] = [
   {
@@ -134,24 +153,45 @@ const benefitItems: BenefitItem[] = [
 const galleryItems: GalleryItem[] = [
   {
     id: '1',
-    title: 'Gewerbefassade – Neuanstrich',
-    category: 'Fassade',
-    imageUrl: '/images/gallery/fassade-1.jpg',
-    description: 'Silikonharzsystem, farbtonstabil und wetterfest'
+    title: 'Einfamilienhaus',
+    category: 'Innenraum',
+    image: galleryImage_Orlando_Architektur_Umbau_Einfamilienhaus,
+    description: 'Umbau im Einfamilienhaus'
   },
   {
     id: '2',
-    title: 'Bürogebäude – Sanierung',
-    category: 'Sanierung',
-    imageUrl: '/images/gallery/fassade-2.jpg',
-    description: 'Risssanierung und mehrschichtiger Beschichtungsaufbau'
+    title: 'Balkon – Aussenbeschichtung',
+    category: 'Aussenbereich',
+    image: galleryImage_Balkon_mit_Holzboden_und_Herbstblick,
+    description: 'UV- und witterungsbeständige Beschichtungslösung für Balkonflächen.'
   },
   {
     id: '3',
-    title: 'Metallgeländer – Korrosionsschutz',
+    title: 'Metalltreppe – Korrosionsschutz',
     category: 'Metall',
-    imageUrl: '/images/gallery/fassade-3.jpg',
-    description: 'Entrostung, Grundierung und Deckbeschichtung'
+    image: galleryImage_Treppenhaus_mit_schwarzer_Wendeltreppe,
+    description: 'Entrostung, Grundierung und Decklack für dauerhaften Schutz.'
+  },
+  {
+    id: '4',
+    title: 'Treppenhaus – Akzent und Orientierung',
+    category: 'Sanierung',
+    image: galleryImage_Treppenhaus_mit_farbiger_Akzentwand,
+    description: 'Robuste, leicht zu reinigende Flächen mit klarer Farbführung.'
+  },
+  {
+    id: '5',
+    title: 'Innenraum – Pflege & Schutz',
+    category: 'Innenraum',
+    image: galleryImage_Wohnbereich_mit_Holzverkleidung_und_Parkett,
+    description: 'Systemaufbau für Holzbauteile im Innenraum'
+  },
+  {
+    id: '6',
+    title: 'Wohnraum',
+    category: 'Malerarbeiten',
+    image: galleryImage_Wohnraum_mit_Einbaukueche_und_Holzparkett,
+    description: 'Wohnraum mit Einbaukküche und Holzparkett'
   }
 ];
 
@@ -200,15 +240,16 @@ const faqItems: FAQItem[] = [
         title="Ihre Vorteile mit MS Maler"
         subtitle="Mehr Wert für Ihre Immobilie"
         badges={benefitBadges}
+        testimonial={testimonial}
         benefits={benefitItems}
     />
 
     <SharedServiceGallery
-        title="Ausgewählte Aussenprojekte"
+        title="Unsere Referenzprojekte"
         subtitle="Einblicke in unsere Arbeiten"
-        description="Ein kleiner Auszug unserer Fassaden- und Aussenarbeiten in Winterthur und Region."
         categories={galleryCategories}
         items={galleryItems}
+        viewMoreHref="/projekte"
     />
 
     <SharedServiceFAQ

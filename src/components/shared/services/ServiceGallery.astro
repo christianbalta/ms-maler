@@ -38,9 +38,14 @@ const {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
       {items.map((item, index) => (
-        <article
-          class="gallery-item group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
-          data-category={item.category} style={`animation-delay: ${index * 50}ms`}>
+        <a
+          href={item.imageUrl}
+          class="glightbox gallery-item group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+          data-category={item.category}
+          data-gallery="service-gallery"
+          data-title={item.title}
+          style={`animation-delay: ${index * 50}ms`}
+          aria-label={`${item.title} vergrössern`}>
           <div class="aspect-[4/3] overflow-hidden bg-gray-200">
             <div
               class="w-full h-full bg-cover bg-center transform group-hover:scale-110 transition-transform duration-700"
@@ -54,12 +59,12 @@ const {
               {item.description && (<p class="text-white/90 text-sm">{item.description}</p>)}
             </div>
           </div>
-          <button class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300" aria-label={`${item.title} vergrössern`}>
+          <div class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300" aria-hidden="true">
             <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
             </svg>
-          </button>
-        </article>
+          </div>
+        </a>
       ))}
     </div>
 
@@ -76,3 +81,30 @@ const {
   </div>
 </section>
 
+
+
+<!-- GLightbox assets for gallery lightbox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+<script>
+  import GLightbox from 'glightbox';
+  // Initialize GLightbox for items in this component
+  const __initServiceGalleryLightbox = () => {
+    try {
+      // Avoid double-initialization if script runs multiple times
+      if (typeof window !== 'undefined' && !(window).__serviceGalleryLightbox) {
+        (window).__serviceGalleryLightbox = GLightbox({
+          selector: '.glightbox',
+          touchNavigation: true,
+          loop: true,
+          autoplayVideos: true,
+          zoomable: true,
+          draggable: true,
+          closeOnOutsideClick: true
+        });
+      }
+    } catch (e) {
+      // no-op: GLightbox optional
+    }
+  };
+  __initServiceGalleryLightbox();
+</script>

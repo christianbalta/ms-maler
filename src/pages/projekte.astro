@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from "../components/shared/Navigation.astro";
+import CTA from "../components/shared/CTA.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const pageTitle = 'Unsere Projekte | MS Maler Winterthur Portfolio';
+const pageDescription = 'Entdecken Sie ausgewählte Projekte von MS Maler – von Gewerbebauten über Renovationen bis zu Fassadenarbeiten in Winterthur und Umgebung.';
+
+const projects = [
+  { name: 'ADM Invest AG', category: 'Gewerbebau' },
+  { name: 'Incontro Winterthur', category: 'Gastronomie' },
+  { name: 'Bühler Areal (Alte Spinnerei) in Sennhof', category: 'Renovation' },
+  { name: 'DEFH Weiherholzstrasse in Fehraltdorf', category: 'Wohnbau' },
+  { name: 'Ärzte am Etzberg Winterthur', category: 'Gewerbe' },
+  { name: 'Robauen AG', category: 'Gewerbebau' },
+  { name: 'Kübler Immobilien AG', category: 'Immobilien' },
+  { name: 'Kurt Sauter Verwaltungen und Treuhand AG', category: 'Büro' },
+  { name: 'Condecta', category: 'Gewerbebau' },
+  { name: 'DOA | Davide Orlando Architektur GmbH', category: 'Büro' },
+  { name: 'Il Tiramisù Restaurant', category: 'Gastronomie' },
+  { name: 'Lanaro Werbetechnik', category: 'Gewerbe' },
+  { name: 'MGP-Bau AG', category: 'Bau' },
+  { name: 'ZHAW School of Engineering', category: 'Bildung' },
+  { name: 'RWPB GmbH', category: 'Gewerbebau' },
+  { name: 'Mango Bahnhofstrasse', category: 'Retail' },
+  { name: 'SMS Concast AG', category: 'Industrie' },
+  { name: 'Baltensperger AG Winterthur', category: 'Gewerbebau' },
+  { name: 'Rafaelschule Zürich', category: 'Bildung' }
+];
+
+// Placeholder images - replace with actual project images
+const galleryImages = [
+  '/images/gallery/1.jpg',
+  '/images/gallery/2.jpg',
+  '/images/gallery/3.jpg',
+  '/images/gallery/4.jpg',
+  '/images/gallery/5.jpg',
+  '/images/gallery/6.jpg',
+  '/images/gallery/7.jpg',
+  '/images/gallery/8.jpg',
+  '/images/gallery/9.jpg',
+  '/images/gallery/10.jpg',
+  '/images/gallery/11.jpg',
+  '/images/gallery/12.jpg'
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navigation/>
+
+  <!-- Page Hero -->
+  <section class="relative bg-gradient-to-b from-white to-gray-50">
+    <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-16 py-16 md:py-24">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+          Unsere Projekte
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          Mit Stolz präsentieren wir eine Auswahl unserer erfolgreich abgeschlossenen Projekte.
+          Von anspruchsvollen Gewerbebauten über komplexe Renovationen bis hin zu präzisen
+          Fassadenarbeiten – Qualität und Zuverlässigkeit stehen bei uns an erster Stelle.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-building text-[var(--color-paint-blue)]"></i>
+            <span>19+ Referenzprojekte</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-certificate text-[var(--color-paint-blue)]"></i>
+            <span>Zertifizierte Qualität</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-users text-[var(--color-paint-blue)]"></i>
+            <span>Zufriedene Kunden</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
+      <div class="mb-12">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Referenzprojekte</h2>
+        <p class="mt-3 text-gray-600">
+          Eine Auswahl unserer Partnerschaften und erfolgreich realisierten Projekte
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {projects.map((project) => (
+          <div class="group relative bg-white rounded-xl border border-gray-200 p-6 hover:shadow-xl hover:border-gray-300 transition-all duration-300 hover:-translate-y-1">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-900 group-hover:text-[var(--color-paint-blue)] transition-colors">
+                  {project.name}
+                </h3>
+                <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+                  {project.category}
+                </span>
+              </div>
+              <div class="flex-shrink-0">
+                <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-[var(--color-paint-blue)] transition-colors">
+                  <i class="fa-solid fa-arrow-right text-gray-400 group-hover:text-white transition-colors"></i>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-100">
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <i class="fa-solid fa-check-circle text-green-500"></i>
+                <span>Projekt abgeschlossen</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Gallery Section -->
+  <section class="bg-gray-50 py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
+      <div class="mb-12 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Galerie</h2>
+        <p class="mt-3 text-gray-600 max-w-2xl mx-auto">
+          Einblicke in unsere Arbeit – von der Vorbereitung bis zum perfekten Finish
+        </p>
+      </div>
+
+      <!-- Masonry Grid Gallery -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        {galleryImages.map((image, index) => (
+          <div class="group relative overflow-hidden rounded-lg bg-gray-200 aspect-square hover:shadow-lg transition-all duration-300">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            {/* Placeholder for images */}
+            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+              <div class="text-center">
+                <i class="fa-solid fa-image text-4xl text-gray-400 mb-2"></i>
+                <p class="text-xs text-gray-500">Bild {index + 1}</p>
+              </div>
+            </div>
+
+            {/* Uncomment when adding real images */}
+            {/* <img
+              src={image}
+              alt={`Projekt Galerie Bild ${index + 1}`}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            /> */}
+
+            <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <button
+                class="w-full bg-white text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+                aria-label="Bild vergrößern"
+              >
+                <i class="fa-solid fa-expand mr-2"></i>
+                Vergrößern
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Gallery Note -->
+      <div class="mt-12 text-center">
+        <p class="text-sm text-gray-500 italic">
+          Weitere Projektbilder und Details auf Anfrage erhältlich
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Indicators -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
+      <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 p-8 md:p-12">
+        <div class="text-center mb-10">
+          <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Warum MS Maler?</h2>
+          <p class="mt-3 text-gray-600">Ihr Partner für professionelle Malerarbeiten</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-[var(--color-paint-blue)]/10 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-award text-2xl text-[var(--color-paint-blue)]"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Erfahrung</h3>
+            <p class="text-gray-600 text-sm">
+              Jahrelange Expertise in allen Bereichen der Malerarbeiten
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-[var(--color-paint-green)]/10 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-clock text-2xl text-[var(--color-paint-green)]"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Zuverlässigkeit</h3>
+            <p class="text-gray-600 text-sm">
+              Termintreue Ausführung und transparente Kommunikation
+            </p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-[var(--color-paint-warm)]/10 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-star text-2xl text-[var(--color-paint-warm)]"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Qualität</h3>
+            <p class="text-gray-600 text-sm">
+              Hochwertige Materialien und saubere, präzise Arbeit
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA/>
+  <Footer/>
+</Layout>
+
+<style>
+  /* Custom hover effects for gallery items */
+  @media (hover: hover) {
+    .group:hover .fa-expand {
+      animation: pulse 0.5s ease-in-out;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+</style>

@@ -1,0 +1,224 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/shared/Navigation.astro';
+import SharedServiceHero from '../../components/shared/services/ServiceHero.astro';
+import SharedServiceDetails from '../../components/shared/services/ServiceDetails.astro';
+import SharedWorkProcess, {
+  type ProcessStep
+} from '../../components/shared/services/WorkProcess.astro';
+import SharedServiceBenefits, {
+  type BenefitItem,
+  type BadgeItem
+} from '../../components/shared/services/ServiceBenefits.astro';
+import SharedServiceGallery, {
+  type GalleryItem
+} from '../../components/shared/services/ServiceGallery.astro';
+import SharedServiceFAQ, {type FAQItem} from '../../components/shared/services/ServiceFAQ.astro';
+import CTA from '../../components/shared/CTA.astro';
+import Footer from '../../components/shared/Footer.astro';
+
+// SEO metadata
+const pageTitle = "Fassaden- & Aussenarbeiten Winterthur | Schutz & Auftritt für Geschäftsgebäude";
+const pageDescription = "Professionelle Fassaden- und Aussenarbeiten für Unternehmen in Winterthur und Umgebung: Fassadensanierung, Anstriche, Wetterschutz, Betonsanierung, Graffitischutz – terminsicher und langlebig.";
+
+// Content for shared components
+const detailsServices = [
+  {
+    icon: 'fa-building',
+    title: 'Fassadensanierung',
+    description: 'Nachhaltige Instandsetzung und Schutzsysteme für Gewerbe- und Verwaltungsgebäude.',
+    features: ['Reinigung & Algenentfernung', 'Risssanierung', 'Putzreparaturen', 'Hydrophobierung']
+  },
+  {
+    icon: 'fa-paint-roller',
+    title: 'Fassadenanstriche',
+    description: 'Hochwertige Beschichtungen mit Wetterschutz – optisch überzeugend, technisch korrekt.',
+    features: ['Silikat-, Silikonharz-, Acrylsysteme', 'Mehrschichtaufbau', 'Farbtonberatung', 'Graffitischutz optional']
+  },
+  {
+    icon: 'fa-helmet-safety',
+    title: 'Beton-/Metallschutz',
+    description: 'Schutz- und Beschichtungssysteme für tragende Bauteile und Metallkonstruktionen.',
+    features: ['Korrosionsschutz (DIN/ISO)', 'Betonsanierung (OS-Systeme)', 'Brandschutz-Beschichtungen', 'Geländer & Stahlteile']
+  },
+  {
+    icon: 'fa-house-flag',
+    title: 'Aussenauftritt & Details',
+    description: 'Erscheinungsbild Ihrer Liegenschaft: Sockel, Vordächer, Holzbauteile, Beschriftungen.',
+    features: ['Holzlasuren & -lacke', 'Sockelbeschichtungen', 'Schriftzüge & Hausnummern', 'Kleinreparaturen']
+  }
+] satisfies import('../../components/shared/services/ServiceDetails.astro').ServiceItem[];
+
+const detailsRightPanel = {
+  title: 'Warum Fassadenarbeiten mit MS Maler?',
+  paragraph: 'Als regionaler Partner in Winterthur verbinden wir sauberes Handwerk mit zuverlässiger Organisation. Wir planen so, dass Betriebsabläufe möglichst ungestört bleiben – mit dokumentierter Qualität und klaren Terminen.',
+  bullets: [
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Sichere Baustellenorganisation (Zugang, Absperrung, Termine)'
+    },
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Systeme führender Hersteller, korrekt verarbeitet'
+    },
+    {
+      iconClass: 'w-5 h-5 text-[var(--color-paint-accent)]',
+      text: 'Transparente Offerten & Festpreise'
+    }
+  ],
+  rating: {value: '5/5', label: 'Kundenzufriedenheit', basedOn: 'Basierend auf 20+ Bewertungen'}
+} satisfies import('../../components/shared/services/ServiceDetails.astro').RightPanel;
+
+const processSteps: ProcessStep[] = [
+  {
+    number: '01',
+    title: 'Besichtigung & Analyse',
+    description: 'Vor Ort in Winterthur & Region: Untergründe, Schäden, Nutzung und Zeitfenster beurteilen.',
+    icon: 'fa-magnifying-glass',
+    duration: 'Sofort'
+  },
+  {
+    number: '02',
+    title: 'Konzept & Offerte',
+    description: 'Systemvorschlag inkl. Farbtönen, Schutzklasse und Terminplan – als transparente Offerte.',
+    icon: 'fa-file-invoice',
+    duration: '24–48h'
+  },
+  {
+    number: '03',
+    title: 'Vorbereitung',
+    description: 'Gerüst/Arbeitsbühne, Reinigung, Abdeckungen, Ausbesserungen und Grundierung gemäss System.',
+    icon: 'fa-screwdriver-wrench',
+    duration: 'Projektabhängig'
+  },
+  {
+    number: '04',
+    title: 'Beschichtung',
+    description: 'Mehrschichtiger Aufbau mit kontrollierten Trocknungszeiten für langlebigen Schutz.',
+    icon: 'fa-brush',
+    duration: 'Effizient'
+  },
+  {
+    number: '05',
+    title: 'Abnahme & Dokumentation',
+    description: 'Qualitätskontrolle, Fotodokumentation, Pflegehinweise und Übergabe.',
+    icon: 'fa-clipboard-check',
+    duration: 'Direkt nach Abschluss'
+  }
+];
+
+const benefitBadges: BadgeItem[] = [
+  {iconClass: 'fa-shield-halved', label: 'Langlebiger Schutz'},
+  {iconClass: 'fa-calendar-check', label: 'Terminsicher'},
+  {iconClass: 'fa-city', label: 'Regional: Winterthur'}
+];
+
+const benefitItems: BenefitItem[] = [
+  {
+    icon: 'fa-swatchbook',
+    title: 'Beratung & Farbkonzept',
+    description: 'Farbton- und Materialberatung passend zu Architektur und CI/CD.'
+  },
+  {
+    icon: 'fa-person-digging',
+    title: 'Saubere Ausführung',
+    description: 'Saubere Baustellenführung, klare Zuständigkeiten, kurze Wege.'
+  },
+  {
+    icon: 'fa-leaf',
+    title: 'Nachhaltige Systeme',
+    description: 'Hochwertige, emissionsarme Produkte für dauerhafte Ergebnisse.'
+  }
+];
+
+const galleryItems: GalleryItem[] = [
+  {
+    id: '1',
+    title: 'Gewerbefassade – Neuanstrich',
+    category: 'Fassade',
+    imageUrl: '/images/gallery/fassade-1.jpg',
+    description: 'Silikonharzsystem, farbtonstabil und wetterfest'
+  },
+  {
+    id: '2',
+    title: 'Bürogebäude – Sanierung',
+    category: 'Sanierung',
+    imageUrl: '/images/gallery/fassade-2.jpg',
+    description: 'Risssanierung und mehrschichtiger Beschichtungsaufbau'
+  },
+  {
+    id: '3',
+    title: 'Metallgeländer – Korrosionsschutz',
+    category: 'Metall',
+    imageUrl: '/images/gallery/fassade-3.jpg',
+    description: 'Entrostung, Grundierung und Deckbeschichtung'
+  }
+];
+
+const galleryCategories = ['Alle', 'Fassade', 'Sanierung', 'Metall'];
+
+const faqItems: FAQItem[] = [
+  {
+    question: 'Wie lange hält ein Fassadenanstrich?',
+    answer: 'Je nach System, Lage und Bewitterung 10–20 Jahre. Wir empfehlen eine objektbezogene Inspektion nach 5 Jahren.'
+  },
+  {
+    question: 'Arbeiten Sie mit Gerüst oder Hebebühne?',
+    answer: 'Wir organisieren das passende Zugangs- und Sicherheitskonzept – vom Gerüst bis zur Hubarbeitsbühne.'
+  },
+  {
+    question: 'Können die Arbeiten den Betrieb stören?',
+    answer: 'Wir planen Zugänge, Lärm- und Staubentwicklung sowie Absperrungen so, dass Ihr Betrieb weiterlaufen kann.'
+  },
+  {
+    question: 'Welche Regionen decken Sie ab?',
+    answer: 'Winterthur, Raum Zürich, Schaffhausen, Frauenfeld und Umgebung. Grössere Projekte auch in der ganzen Deutschschweiz.'
+  }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navigation/>
+
+  <main>
+    <SharedServiceHero
+        title="Fassaden- & Aussenarbeiten"
+        subtitle="Schutz, Werterhalt und professioneller Auftritt für Firmenliegenschaften"
+        description="Fassadensanierung und -beschichtung für Winterthur und Umgebung – technisch korrekt, sauber ausgeführt und terminsicher."
+    />
+
+    <SharedServiceDetails services={detailsServices} rightPanel={detailsRightPanel}/>
+
+    <SharedWorkProcess
+        title="So gehen wir vor"
+        subtitle="Strukturiert, sicher und effizient"
+        description="Unser Prozess ist auf gewerbliche Anforderungen ausgelegt – transparent, planbar und mit klarer Qualitätssicherung."
+        steps={processSteps}
+    />
+
+    <SharedServiceBenefits
+        title="Ihre Vorteile mit MS Maler"
+        subtitle="Mehr Wert für Ihre Immobilie"
+        badges={benefitBadges}
+        benefits={benefitItems}
+    />
+
+    <SharedServiceGallery
+        title="Ausgewählte Aussenprojekte"
+        subtitle="Einblicke in unsere Arbeiten"
+        description="Ein kleiner Auszug unserer Fassaden- und Aussenarbeiten in Winterthur und Region."
+        categories={galleryCategories}
+        items={galleryItems}
+    />
+
+    <SharedServiceFAQ
+        title="Häufige Fragen"
+        subtitle="Rund um Fassaden- & Aussenarbeiten"
+        items={faqItems}
+    />
+
+    <CTA/>
+  </main>
+
+  <Footer/>
+</Layout>

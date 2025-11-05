@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from "../components/shared/Navigation.astro";
+import Footer from "../components/shared/Footer.astro";
+
+const pageTitle = 'Kontakt für Unternehmen | MS Maler Winterthur';
+const pageDescription = 'Kontaktieren Sie MS Maler für gewerbliche Projekte: Büro- und Mieterausbau, Fassaden, Renovation im laufenden Betrieb. Schnelle Offerte und klare Termine.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Navigation/>
+
+  <!-- Page Hero -->
+  <section class="relative bg-gradient-to-b from-white to-gray-50">
+    <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-16 py-12 md:py-16">
+      <div class="max-w-3xl">
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">Projektanfrage</h1>
+        <p class="mt-4 text-gray-600 leading-relaxed">
+          Planen Sie ein Projekt für Ihre Liegenschaft, Büroräume oder Ihren Gewerbebetrieb? Wir
+          beraten, planen
+          und realisieren zuverlässig – mit klaren Terminen und sauberer Ausführung bei laufendem
+          Betrieb.
+        </p>
+        <div class="mt-6 flex items-center gap-6 text-sm text-gray-600">
+          <div class="flex items-center gap-2"><i
+              class="fa-solid fa-clock text-[var(--color-paint-accent,#0ea5e9)]"></i><span>Antwort in 24–48h</span>
+          </div>
+          <div class="flex items-center gap-2"><i
+              class="fa-solid fa-location-dot text-[var(--color-paint-accent,#0ea5e9)]"></i><span>Winterthur & Region</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form for B2B -->
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-6 md:px-12 lg:px-16 py-10 md:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-1 gap-10 lg:gap-16">
+        <!-- Left: Form -->
+        <div class="bg-gray-50 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+          <h2 class="text-xl md:text-2xl font-semibold text-gray-900">Projektanfrage stellen</h2>
+          <p class="mt-2 text-gray-600 text-sm">Bitte geben Sie uns einige Eckdaten zu Ihrem
+            Vorhaben. Wir melden uns umgehend mit Rückfragen oder einer Offerte.</p>
+
+          <form name="kontakt-b2b" method="POST" class="mt-6 space-y-5">
+            <input type="hidden" name="form-name" value="kontakt-b2b"/>
+            <p class="hidden"><label>Nicht ausfüllen: <input name="bot-field"/></label></p>
+            <!-- Company Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="company" class="block text-sm font-medium text-gray-700">Firma /
+                  Organisation</label>
+                <input id="company" name="company" type="text"
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="Muster AG"/>
+              </div>
+              <div>
+                <label for="industry" class="block text-sm font-medium text-gray-700">Branche
+                  (optional)</label>
+                <input id="industry" name="industry" type="text"
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="Immobilien, Industrie, Verwaltung"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="contact"
+                       class="block text-sm font-medium text-gray-700">Ansprechperson</label>
+                <input id="contact" name="contact" type="text" required
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="Vor- und Nachname"/>
+              </div>
+              <div>
+                <label for="role" class="block text-sm font-medium text-gray-700">Funktion</label>
+                <input id="role" name="role" type="text"
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="Hauswart, Facility, Projektleitung"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="md:col-span-2">
+                <label for="email" class="block text-sm font-medium text-gray-700">E-Mail</label>
+                <input id="email" name="email" type="email" required
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="info@firma.ch"/>
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700">Telefon</label>
+                <input id="phone" name="phone" type="tel"
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="+41 79 000 00 00"/>
+              </div>
+            </div>
+
+            <!-- Project Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="projectType"
+                       class="block text-sm font-medium text-gray-700">Projektart</label>
+                <select id="projectType" name="projectType" required
+                        class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400">
+                  <option value="">Bitte wählen</option>
+                  <option>Innenanstrich / Büroflächen</option>
+                  <option>Fassaden- & Aussenarbeiten</option>
+                  <option>Mieterausbau / Renovation</option>
+                  <option>Spritzarbeiten</option>
+                </select>
+              </div>
+              <div>
+                <label for="location" class="block text-sm font-medium text-gray-700">Ort</label>
+                <input id="location" name="location" type="text" required
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                       placeholder="8400 Winterthur"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="budget"
+                       class="block text-sm font-medium text-gray-700">Budgetrahmen</label>
+                <select id="budget" name="budget"
+                        class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400">
+                  <option value="">Unklar / nach Besichtigung</option>
+                  <option>bis CHF 5’000</option>
+                  <option>CHF 5’000 – 20’000</option>
+                  <option>CHF 20’000 – 50’000</option>
+                  <option>CHF 50’000+</option>
+                </select>
+              </div>
+              <div>
+                <label for="timeline"
+                       class="block text-sm font-medium text-gray-700">Zeitplan</label>
+                <select id="timeline" name="timeline"
+                        class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400">
+                  <option>Schnellstmöglich</option>
+                  <option>In 2–4 Wochen</option>
+                  <option>In 1–3 Monaten</option>
+                  <option>Flexibel / nach Absprache</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="message"
+                     class="block text-sm font-medium text-gray-700">Kurzbeschreibung</label>
+              <textarea id="message" name="message" rows="5" required
+                        class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"
+                        placeholder="Beschreiben Sie das Objekt und den Umfang. Wichtige Besonderheiten (z. B. laufender Betrieb, Zugang, Termine)…"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="contactPref" class="block text-sm font-medium text-gray-700">Bevorzugte
+                  Kontaktaufnahme</label>
+                <select id="contactPref" name="contactPref"
+                        class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400">
+                  <option>Telefon</option>
+                  <option>E-Mail</option>
+                </select>
+              </div>
+              <div>
+                <label for="startDate" class="block text-sm font-medium text-gray-700">Geplanter
+                  Start (optional)</label>
+                <input id="startDate" name="startDate" type="date"
+                       class="mt-2 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-400"/>
+              </div>
+            </div>
+
+            <!-- Consent -->
+            <div class="flex items-start gap-3">
+              <input id="consent" name="consent" type="checkbox" required
+                     class="mt-1 h-4 w-4 rounded border-gray-300 text-sky-500 focus:ring-sky-400"/>
+              <label for="consent" class="text-sm text-gray-600">Ich bin mit der Verarbeitung meiner
+                Angaben zum Zweck der Kontaktaufnahme einverstanden.</label>
+            </div>
+
+            <!-- Submit -->
+            <div class="pt-2">
+              <button type="submit"
+                      class="inline-flex items-center gap-2 rounded-lg bg-black text-white px-5 py-3 text-sm font-medium hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                <i class="fa-solid fa-paper-plane"></i>
+                Anfrage senden
+              </button>
+            </div>
+
+            <!-- Note about handling -->
+            <p class="text-xs text-gray-500 mt-3">Hinweis: Dieses Formular sendet Ihre Angaben
+              sicher an MS Maler. Für Datei-Uploads oder zusätzliche Unterlagen nehmen wir nach
+              Erhalt Kontakt auf.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer/>
+</Layout>
